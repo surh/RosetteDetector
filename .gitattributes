@@ -1,0 +1,2 @@
+data/m1_20141020.RData filter=lfs diff=lfs merge=lfs -text
+data/m1_20141021tiny.RData filter=lfs diff=lfs merge=lfs -text
