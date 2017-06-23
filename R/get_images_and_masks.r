@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' Get images and masks
+#' 
+#' @export
 get_images_and_masks <- function(img_dir,mask_dir){
   # Read images
   # mask_dir <- other_mask_dir

@@ -9,3 +9,4 @@ Author: Sur Herrera Paredes
 Maintainer: Sur Herrera Paredes <sur00mx@gmail.com>
 Description: Rosette Detection with SVM
 License: GPL-3
+RoxygenNote: 6.0.1

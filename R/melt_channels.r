@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
+#' Melt channels
+#' 
+#' @export
 melt_channels <- function(x,varnames=c("R","G","B")){
   #   x <- pot1
   #   varnames <- c("R","G","B") 

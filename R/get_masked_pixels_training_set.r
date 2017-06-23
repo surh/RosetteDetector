@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' Get masked pixels in training set
+#' 
+#' @export
 get_masked_pixels_training_set <- function(Img){
   # Img <- Images[[1]]
   # Img <- plant_images[[1]]
