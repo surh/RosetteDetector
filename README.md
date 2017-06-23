@@ -22,6 +22,8 @@ devtools::install_github("surh/RosetteDetector", ref = "dev")
 
 For referencing please use the version doi.
 
+[![DOI](https://zenodo.org/badge/10928/surh/RosetteDetector.svg)](https://zenodo.org/badge/latestdoi/10928/surh/RosetteDetector)
+
 # Copyright & license
 
     (C) Copyright 2017 Sur Herrera Paredes
