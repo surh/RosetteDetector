@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' Make cell histograms
+#' 
+#' @export
 make_cell_histograms <- function(x,nbins=9,cellsize=8){
   #   x <- pot1.full
   #   nbins <- 9

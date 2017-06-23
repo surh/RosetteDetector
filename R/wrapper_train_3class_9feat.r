@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' Train on 3 classes and 9 functions
+#' 
+#' @export
 wrapper_train_3class_9feat <- function(img_dir,plant_mask_dir,soil_mask_dir,other_mask_dir,
                                        kernel = "radial",pixels_per_class = 1000000, probability = TRUE){
   #   img_dir <- "test_images/pots/"
