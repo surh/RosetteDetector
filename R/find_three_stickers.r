@@ -28,8 +28,8 @@ find_three_stickers <- function(img,
                                 return.img = FALSE) {
   
   topleft <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
-  topright <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
-  bottomleft <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
+  topright <- find_sticker(img = img,mins = topright.min, maxs = topright.max, return.img = return.img)
+  bottomleft <- find_sticker(img = img,mins = bottomleft.min, maxs = bottomleft.max, return.img = return.img)
   
   res <- data.frame(rbind(topleft$pos,topright$pos,bottomleft$pos))
   res$Location <- c("topleft","topright","bottomleft")
