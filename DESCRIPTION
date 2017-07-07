@@ -4,6 +4,7 @@ Title: RosetteDetector
 Version: 0.0-1
 Depends: EBImage(>= 4.6.0),
 	reshape2(>= 1.4), e1071(>= 1.6-4)
+Imports: raster, plotrix
 Date: 2014-10-27
 Author: Sur Herrera Paredes
 Maintainer: Sur Herrera Paredes <sur00mx@gmail.com>
