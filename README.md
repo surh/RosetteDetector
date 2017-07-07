@@ -27,15 +27,15 @@ recomended is to launch R from the same terminal location and type:
 devtools::install(RosetteDetector/)
 ```
 
-For the development version, once must switch to the `dev` branch. After cloning the repository. Go into
-the newly created directory and switch branches bby typing:
+For the development version, one must switch to the `dev` branch. After cloning the repository, go into
+the newly created directory and switch branches by typing:
 
 ```sh
 cd RosetteDetector
 git checkout dev
 ```
-Once this is done, you can use devtools to install this version with, by launching R from the repository
-directory and typing:
+Once this is done, you can use devtools to install the version in the development branch.
+Just launch R from the repository directory and type:
 
 ```r
 devtools::install("./")
