@@ -18,6 +18,12 @@ For the development version
 devtools::install_github("surh/RosetteDetector", ref = "dev")
 ```
 
+# Usage
+
+Look at `inst/scripts/pipeline.r`
+
+Vignette coming soon.
+
 # Referencing
 
 For referencing please use the version doi.
