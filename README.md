@@ -13,8 +13,6 @@ It is also recommended that you install the R package devtools. Just launch R an
 ```r
 install.packages("devtools")
 ```
-This repository uses git lfs to stor the SVM model data files. Therefore, in order to download those fil
-You will require the devtools package. Once that package is installed just type:
 
 Once you have git lfs installed, you can clone this repository.
 
