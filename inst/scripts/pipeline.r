@@ -18,7 +18,7 @@
 library(RosetteDetector)
 
 img_file <- base::system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
-img_file <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
+# img_file <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
 img <- EBImage::channel(x = EBImage::readImage(img_file),mode = "rgb")
 # mins <- c(0,0.2,0.3)
 # maxs <- c(0.15,0.3,0.5)
