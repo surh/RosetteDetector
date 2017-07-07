@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' Get training set from image
+#' 
+#' @export
 get_trainig_set_from_image <- function(Img,n_bgpixels=1000){
   #Img <- Images[[1]]
   
