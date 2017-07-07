@@ -35,7 +35,7 @@ find_sticker <- function(img,mins,maxs,return.img = FALSE) {
     # rgb.channel <- 2
     # rgb.channel <- 3
     
-    mono.img <- channel(x = img[,,rgb.channel],mode = "gray")
+    mono.img <- EBImage::channel(x = img[,,rgb.channel],mode = "gray")
     # display(mono.img)
     # display(mono.img >= topleft.min[rgb.channel])
     # display(mono.img <= topleft.max[rgb.channel])
@@ -58,7 +58,7 @@ find_sticker <- function(img,mins,maxs,return.img = FALSE) {
   spot <- as.numeric(names(sizes[1]))
   selected[ selected != spot ] <- 0
   selected <- EBImage::fillHull(selected)
-  selected <- bwlabel(selected)
+  selected <- EBImage::bwlabel(selected)
   # table(selected)
   # display(selected)
   
