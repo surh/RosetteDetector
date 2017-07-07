@@ -28,9 +28,13 @@ find_three_stickers <- function(img,
                                 return.img = FALSE) {
   
   topleft <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
-  topright <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
-  bottomleft <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
+  topright <- find_sticker(img = img,mins = topright.min, maxs = topright.max, return.img = return.img)
+  bottomleft <- find_sticker(img = img,mins = bottomleft.min, maxs = bottomleft.max, return.img = return.img)
+  bottomright <- list(pos = NULL,size = NULL)
   
   mean.size <- mean(topleft$size, topright$size, bottomleft$size)
   
+  return(list(topleft = topleft$pos, topright = topright$pos,
+              bottomleft = bottomleft$pos, bottomright = bottomright$pos,
+              size = mean.size))
 }
