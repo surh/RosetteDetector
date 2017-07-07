@@ -6,18 +6,42 @@ Uses a Support Vector Machine to find the plant.
 
 # Installation
 
+If you have not done it before, you will need to [install git lfs](https://help.github.com/articles/installing-git-large-file-storage/).
+
+It is also recommended that you install the R package devtools. Just launch R and type
+
+```r
+install.packages("devtools")
+```
+This repository uses git lfs to stor the SVM model data files. Therefore, in order to download those fil
 You will require the devtools package. Once that package is installed just type:
 
-```r
-devtools::install_github("surh/RosetteDetector")
+Once you have git lfs installed, you can clone this repository.
+
+```sh
+git clone https://www.github.com/surh/RosetteDetector.git
 ```
 
-For the development version
+Once you have cloned the repository, there are various ways to install the package, but the simplest and
+recomended is to launch R from the same terminal location and type:
 
 ```r
-devtools::install_github("surh/RosetteDetector", ref = "dev")
+devtools::install(RosetteDetector/)
 ```
 
+For the development version, once must switch to the `dev` branch. After cloning the repository. Go into
+the newly created directory and switch branches bby typing:
+
+```sh
+cd RosetteDetector
+git checkout dev
+```
+Once this is done, you can use devtools to install this version with, by launching R from the repository
+directory and typing:
+
+```r
+devtools::install("./")
+```
 # Usage
 
 Look at `inst/scripts/pipeline.r`
