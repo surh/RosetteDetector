@@ -1,4 +1,5 @@
 library(RosetteDetector)
+library(methods)
 
 img_file <- base::system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
 # img_file <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
@@ -19,20 +20,21 @@ for(rgb.channel in 1:3){
   # rgb.channel <- 2
   # rgb.channel <- 3
   
-  mono.img <- channel(x = img[,,rgb.channel],mode = "gray")
+  cat("Hola1\n")
+  mono.img <- EBImage::channel(x = img[,,rgb.channel],mode = "gray")
   # display(mono.img)
   # display(mono.img >= topleft.min[rgb.channel])
   # display(mono.img <= topleft.max[rgb.channel])
   # 
   # display(mono.img >= 0.3)
   # display(mono.img <= 0.5)
-  
+  cat("Hola2\n")
   selected[[rgb.channel]] <- (mono.img >= mins[rgb.channel]) & (mono.img <= maxs[rgb.channel])
   # display(selected)
 }
 # Merge
 selected <- selected[[1]] & selected[[2]] & selected[[3]]
-# display(selected)
+display(selected)
 
 # Segment and pick biggest
 selected <- EBImage::bwlabel(selected)
