@@ -1,5 +1,5 @@
 library(RosetteDetector)
-library(methods)
+# library(methods)
 
 img_file <- base::system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
 # img_file <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
