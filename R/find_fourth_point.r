@@ -15,19 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Predict fromm 9 features
+#' Find fourth point
 #' 
 #' @export
-wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1){
-  # Get image files and create output directories
-  pictures <- paste(img_dir,dir(img_dir),sep="/")
-  dir.create(overlaydir)
-  dir.create(maskdir)
+find_fourth_point <- function(x){
+  if(is.null(x$bottomright)){
+    x.new <- (x$topright[ "m.cx" ] - x$topleft[ "m.cx" ]) + x$bottomleft[ "m.cx" ]
+    y.new <- x$topright["m.cy"] + (x$bottomleft[ "m.cy" ] - x$topleft[ "m.cy" ])
+    
+    x$bottomright <- c(x.new, y.new)
+  }else{
+    stop("ERROR: Not implemented",call. = TRUE)
+  }
   
-  # Predict
-  res <- sapply(pictures,predict_image,
-                m1 = m1, size_threshold = 0, predict_class = "plant", outmask = maskdir, outoverlay = overlaydir)
-  Res <- data.frame(file = names(res), npixels = res)
-  
-  return(Res)
+  return(x)
 }

@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-
+#' Get feature values
+#' 
+#' @export
 get_values <- function(Img){
 #   Img <- Images[[1]]
   

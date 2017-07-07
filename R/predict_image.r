@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
+#' Predict image
+#' 
+#' @export
 predict_image <- function(picture,m1,size_threshold=0,predict_class="plant",outmask = "outmask/",outoverlay = "outoverlay/"){
   #   picture <- pictures[1]
   #   size_threshold <- 0

@@ -15,19 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Predict fromm 9 features
+#' Hull area from mask
 #' 
 #' @export
-wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1){
-  # Get image files and create output directories
-  pictures <- paste(img_dir,dir(img_dir),sep="/")
-  dir.create(overlaydir)
-  dir.create(maskdir)
+hull_area_from_masks <- function(img){
+  # mask <- readImage("mask/example1.col2.row1.jpeg")
+  # display(mask)
   
-  # Predict
-  res <- sapply(pictures,predict_image,
-                m1 = m1, size_threshold = 0, predict_class = "plant", outmask = maskdir, outoverlay = overlaydir)
-  Res <- data.frame(file = names(res), npixels = res)
+  indices <- which(img > 0,arr.ind = TRUE)
+  if(nrow(indices) == 0){
+    return(0)
+  }
+  hull.index <- chull(indices)
+  hull.coords <- indices[ hull.index,]
+  hull.area <- splancs::areapl(hull.coords)
   
-  return(Res)
+  return(hull.area)
 }
