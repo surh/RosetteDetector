@@ -27,64 +27,10 @@ res
 res <- find_fourth_point(x = res)
 res
 
-image(img[,,1] >= 0)
-p1 <- plotrix::draw.circle(x = res$bottomright["m.cx"],
-                     y = dim(img)[2] - res$bottomright["m.cy"],
-                     radius = sqrt(res$size / pi),
-                     nv =200,border=NULL,col="yellow",lty=1,lwd=1)
-p2 <- plotrix::draw.circle(x = res$topright["m.cx"],
-                     y = dim(img)[2] - res$topright["m.cy"],
-                     radius = sqrt(res$size / pi),
-                     nv =200,border=NULL,col="magenta",lty=1,lwd=1)
-p3 <- plotrix::draw.circle(x = res$topleft["m.cx"],
-                     y = dim(img)[2] - res$topleft["m.cy"],
-                     radius = sqrt(res$size / pi),
-                     nv =200,border=NULL,col="blue",lty=1,lwd=1)
-p4 <- plotrix::draw.circle(x = res$bottomleft["m.cx"],
-                     y = dim(img)[2] - res$bottomleft["m.cy"],
-                     radius = sqrt(res$size / pi),
-                     nv =200,border=NULL,col="red",lty=1,lwd=1)
 
+plot_platecrop(img,res)
 
-test <- img
-
-test[ round(p1$x), round (p1$y) , 1:3] <- 1
-display(img)
-
-
-
-# library(raster)
-# library(plotrix)
-r1 <- raster::brick(system.file("external/rlogo.grd", package="raster"))
-width <- 50
-height <- 40
-x <- raster::crop(r1, raster::extent(0,width,0,height))
-raster::plotRGB(x)
-circlex=20
-circley=15
-radius=10
-plotrix::draw.circle(circlex,circley,radius,border="blue")
-
-
-
-img.ras <- raster::brick(img * 255, xmn = 0, xmx = dim(img)[1], ymn = 0, ymx = dim(img)[2],
-                         crs = "+proj=merc +datum=WGS84", transpose = TRUE)
-img.ras
-x
-raster::plotRGB(img.ras)
-p1 <- plotrix::draw.circle(x = res$bottomright["m.cx"],
-                           y = dim(img)[2] - res$bottomright["m.cy"],
-                           radius = sqrt(res$size / pi),
-                           nv =200,border=NULL,col="yellow",lty=1,lwd=1)
-p2 <- plotrix::draw.circle(x = res$topright["m.cx"],
-                           y = dim(img)[2] - res$topright["m.cy"],
-                           radius = sqrt(res$size / pi),
-                           nv =200,border=NULL,col="magenta",lty=1,lwd=1)
-p3 <- plotrix::draw.circle(x = res$topleft["m.cx"],
-                           y = dim(img)[2] - res$topleft["m.cy"],
-                           radius = sqrt(res$size / pi),
-                           nv =200,border=NULL,col="blue",lty=1,lwd=1)
-p4 <- plotrix::draw.circle(x = res$bottomleft["m.cx"],
-                           y = dim(img)[2] - res$bottomleft["m.cy"],
-                           radius = sqrt(res$size / pi),
-                           nv =200,border=NULL,col="red",lty=1,lwd=1)
+# To generate combinations
+rows <- c(10,20,30)
+cols <- c(40,80,120,160)
+expand.grid(rows = rows, cols = cols)
