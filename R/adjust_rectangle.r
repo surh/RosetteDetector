@@ -34,47 +34,48 @@ adjust_rectangle <- function(points,v = 0,h = 0) {
   
   if(v != 0){
     # Left
-    dis <- dist(rbind(points$topleft,points$bottomleft))
+    #dis <- dist(rbind(points$topleft,points$bottomleft))
     new.points <- increase_segment(x1 = points$topleft["m.cx"],
                                    y1 = points$topleft["m.cy"],
                                    x2 = points$bottomleft["m.cx"],
                                    y2 = points$bottomleft["m.cy"],
                                    increase = v)
-    points$topleft <- new.points$point.A
-    points$bottomleft <- new.points$point.B
+    points$topleft <- new.points$A
+    points$bottomleft <- new.points$B
+    # plot_platecrop(img,points)
     
     # Right
-    dis <- dist(rbind(points$topright,points$bottomright))
+    # dis <- dist(rbind(points$topright,points$bottomright))
     new.points <- increase_segment(x1 = points$topright["m.cx"],
                                    y1 = points$topright["m.cy"],
                                    x2 = points$bottomright["m.cx"],
                                    y2 = points$bottomright["m.cy"],
                                    increase = v)
-    points$topright <- new.points$point.A
-    points$bottomright <- new.points$point.B
+    points$topright <- new.points$A
+    points$bottomright <- new.points$B
     
   }
   
   if(h != 0){
     # Top
-    dis <- dist(rbind(points$topleft,points$topright))
+    # dis <- dist(rbind(points$topleft,points$topright))
     new.points <- increase_segment(x1 = points$topleft["m.cx"],
                                    y1 = points$topleft["m.cy"],
                                    x2 = points$topright["m.cx"],
                                    y2 = points$topright["m.cy"],
-                                   increase = v)
-    points$topleft <- new.points$point.A
-    points$topright <- new.points$point.B
+                                   increase = h)
+    points$topleft <- new.points$A
+    points$topright <- new.points$B
     
     # Bottom
-    dis <- dist(rbind(points$bottomleft,points$bottomright))
+    # dis <- dist(rbind(points$bottomleft,points$bottomright))
     new.points <- increase_segment(x1 = points$bottomleft["m.cx"],
                                    y1 = points$bottomleft["m.cy"],
                                    x2 = points$bottomright["m.cx"],
                                    y2 = points$bottomright["m.cy"],
-                                   increase = v)
-    points$bottomleft <- new.points$point.A
-    points$bottomright <- new.points$point.B
+                                   increase = h)
+    points$bottomleft <- new.points$A
+    points$bottomright <- new.points$B
   }
   
   return(points)
