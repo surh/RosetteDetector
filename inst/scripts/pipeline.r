@@ -63,7 +63,7 @@ plot_platecrop(img,res.adj)
 # plot_platecrop(img,res.adj)
 
 dir.create("output")
-files <- crop_plate(img,res,prefix="output/example1.")
+files <- crop_plate(img,res.adj,prefix="output/example1.")
 
 data("m1_20141021tiny")
 sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
