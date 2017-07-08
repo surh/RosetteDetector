@@ -18,29 +18,64 @@
 #' Adjust rectangle
 #' 
 #' Increases the distance between points by some factor.
+#' 
+#' @param points A list containing topleft, topright, bottomleft, and bottomright entries.
+#' Each entry must be a names numeric vector of lecgth two with elements "m.cy" and "m.cy",
+#' which correspond to the x and y coordinates of each point
+#' @param v,h Adjustment distance in vertical and horizontal direction respectively. Must
+#' be an integer in pixels. 0 doesn't change anything in that direction.
 #'  
 #' @export
-adjust_rectangle <- function(points,v = 1,h = 1) {
-  points <- res
-  v <- 30
-  #https://math.stackexchange.com/questions/352828/increase-length-of-line
+adjust_rectangle <- function(points,v = 0,h = 0) {
   
-  new.points <- increase_segment(x1 = points$topleft["m.cx"],
-                                 y1 = points$topleft["m.cy"],
-                                 x2 = points$bottomleft["m.cx"],
-                                 y2 = points$bottomleft["m.cy"],
-                                 increase = v)
-  new.points
-  res <- points
+  if(any(sapply(points[1:4], is.null))){
+    stop("ERROR: All four points must be defined",call. = TRUE)
+  }
   
-  res$topleft <- new.points$A
-  res$bottomleft <- new.points$B
-  plot_platecrop(img,res)
+  if(v != 0){
+    # Left
+    dis <- dist(rbind(points$topleft,points$bottomleft))
+    new.points <- increase_segment(x1 = points$topleft["m.cx"],
+                                   y1 = points$topleft["m.cy"],
+                                   x2 = points$bottomleft["m.cx"],
+                                   y2 = points$bottomleft["m.cy"],
+                                   increase = v)
+    points$topleft <- new.points$point.A
+    points$bottomleft <- new.points$point.B
+    
+    # Right
+    dis <- dist(rbind(points$topright,points$bottomright))
+    new.points <- increase_segment(x1 = points$topright["m.cx"],
+                                   y1 = points$topright["m.cy"],
+                                   x2 = points$bottomright["m.cx"],
+                                   y2 = points$bottomright["m.cy"],
+                                   increase = v)
+    points$topright <- new.points$point.A
+    points$bottomright <- new.points$point.B
+    
+  }
   
-  
-  # Left
-  dis <- dist(rbind(points$topleft,points$bottomleft))
-  delta.x <- 
+  if(h != 0){
+    # Top
+    dis <- dist(rbind(points$topleft,points$topright))
+    new.points <- increase_segment(x1 = points$topleft["m.cx"],
+                                   y1 = points$topleft["m.cy"],
+                                   x2 = points$topright["m.cx"],
+                                   y2 = points$topright["m.cy"],
+                                   increase = v)
+    points$topleft <- new.points$point.A
+    points$topright <- new.points$point.B
+    
+    # Bottom
+    dis <- dist(rbind(points$bottomleft,points$bottomright))
+    new.points <- increase_segment(x1 = points$bottomleft["m.cx"],
+                                   y1 = points$bottomleft["m.cy"],
+                                   x2 = points$bottomright["m.cx"],
+                                   y2 = points$bottomright["m.cy"],
+                                   increase = v)
+    points$bottomleft <- new.points$point.A
+    points$bottomright <- new.points$point.B
+  }
   
   return(points)
   
