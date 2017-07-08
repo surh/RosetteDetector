@@ -47,9 +47,20 @@ res
 
 plot_platecrop(img,res)
 
-adjust_rectangle(points = res, v = 1.2, h = 1)
+res.adj <- adjust_rectangle(points = res, v = 30, h = 0)
+plot_platecrop(img,res.adj)
 
-
+# res.adj <- adjust_rectangle(points = res, v = -30, h = 0)
+# plot_platecrop(img,res.adj)
+# 
+# res.adj <- adjust_rectangle(points = res, v = 0, h = 30)
+# plot_platecrop(img,res.adj)
+# 
+# res.adj <- adjust_rectangle(points = res, v = 0, h = -30)
+# plot_platecrop(img,res.adj)
+# 
+# res.adj <- adjust_rectangle(points = res, v = 30, h = 30)
+# plot_platecrop(img,res.adj)
 
 dir.create("output")
 files <- crop_plate(img,res,prefix="output/example1.")
