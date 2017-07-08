@@ -20,10 +20,10 @@
 #' Increases the distance between points by some factor.
 #' 
 #' @param points A list containing topleft, topright, bottomleft, and bottomright entries.
-#' Each entry must be a names numeric vector of lecgth two with elements "m.cy" and "m.cy",
+#' Each entry must be a names numeric vector of length two with elements "m.cy" and "m.cy",
 #' which correspond to the x and y coordinates of each point
 #' @param v,h Adjustment distance in vertical and horizontal direction respectively. Must
-#' be an integer in pixels. 0 doesn't change anything in that direction.
+#' be an integer in pixels. 0 does not change anything in that direction.
 #'  
 #' @export
 adjust_rectangle <- function(points,v = 0,h = 0) {

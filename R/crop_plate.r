@@ -19,14 +19,14 @@
 #' 
 #' Crops plate into a grid
 #' 
-#' @param img Imge object. Recommended to use EBImage objects, but any 3-dimensional
+#' @param img Image object. Recommended to use EBImage objects, but any 3-dimensional
 #' matrix would work
 #' @param points A list containing topleft, topright, bottomleft, and bottomright entries.
-#' Each entry must be a names numeric vector of lecgth two with elements "m.cy" and "m.cy",
+#' Each entry must be a names numeric vector of length two with elements "m.cy" and "m.cy",
 #' which correspond to the x and y coordinates of each point
 #' @param cols,rows Number of columns and rows desired in the grid.
 #' @param prefix String with file prefix to append to filenames of resulting grid files.
-#' @param adjust.cell Number of pixels to increase every side of each cell rectangle.
+#' @param adjust.cell NOT IMPLEMENTED. Number of pixels to increase every side of each cell rectangle.
 #' @param col.resize,row.resize NOT IMPLEMENTED. Eventually allowing to 
 #' @param return.images Logical indicating whether image objects should be returned for the grid.
 #' Defaults to FALSE, which only generates output files.
@@ -35,38 +35,9 @@
 crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
                        col.resize = 1, row.resize = 1.2, adjust.cell = 0,
                        return.images = FALSE){
-
-  # Eventually I want to solve it with linear equations
-  # origin <- points$topleft
-  # end <- points$topright
-  # 
-  # slope.top <- (origin[ "m.cy" ] - end[ "m.cy" ]) /
-  #   (origin[ "m.cx" ] - end[ "m.cx" ])
-  # intercept.top <- points$topleft[ "m.cy" ] - slope.top * points$topleft[ "m.cx" ]
-  # dist.top <- dist(rbind(points$topleft[ c("m.cx","m.cy")],points$topright[ c("m.cx","m.cy")]))
-  # dis.target <- seq(from = 0, to = dist.top, length.out = cols)
-  # 
-  # # Numbers for quadratic general equation
-  # a.quad <- 1 + slope.top^2
-  # b.quad <- 2*(intercept.top*slope.top - origin["m.cx"] - origin["m.cy"]*slope.top)
-  # c.quad <- intercept.top^2 - 2*origin["m.cy"]*intercept.top + sum(origin^2) + dis.target[2]^2
-  # 
-  # x.new <- (-b.quad + sqrt(b.quad^2 - 4*a.quad*c.quad)) / (2*a.quad)
-  # y.new <- slope.top + intercept.top*x.new
-  
-  # points <- res.adj
-  # cols <- 4
-  # rows <- 3
-  # adjust.cell <- 30
   
   col.grid <- get_one_grid_dim(A = points$topleft, B = points$topright, n = cols)
   row.grid <- get_one_grid_dim(A = points$topleft, B = points$bottomleft, n = rows)
-  
-  # # Move points
-  # col.borders <- seq(from = points$topleft["m.cx"],to = points$topright["m.cx"],length.out = cols + 1)
-  # row.borders <- seq(from = points$topleft["m.cy"],to = points$bottomleft["m.cy"],length.out = rows + 1)
-  # col.borders <- round(col.borders)
-  # row.borders <- round(row.borders)
   
   Res <- NULL
   Wells <- list()
@@ -75,16 +46,11 @@ crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
     for(row_i in 1:rows){
       # row_i <- 2
       
+      # This can be used to then call the adjust_square function and adjust the well size
       # A <- c(col.grid[col_i, "x"], row.grid[row_i, "y"])
       # B <- c(col.grid[col_i + 1, "x"], row.grid[row_i, "y"])
       # C <- c(col.grid[col_i, "x"], row.grid[row_i + 1, "y"])
       # D <- c(col.grid[col_i + 1, "x"], row.grid[row_i + 1, "y"])
-      
-      # # Adjust grid to make it square
-      # A["y"] <- B["y"] <- round(min(A["y"],B["y"]))
-      # C["y"] <- D["y"] <- round(max(C["x"],D["x"]))
-      # A["x"] <- C["x"] <- round(min(A["x"],C["x"]))
-      # B["x"] <- D["x"] <- round(max(B["x"],D["x"]))
       
       well <- img[ round(col.grid[col_i, "x"]):round(col.grid[col_i + 1, "x"]),
                    round(row.grid[row_i, "y"]):round(row.grid[row_i + 1, "y"]),  ]
@@ -105,7 +71,7 @@ crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
   return(Res)
 }
 
-#' Get onne dimension on grid
+#' Get one dimension on grid
 #' 
 #' Internal
 get_one_grid_dim <- function(A,B,n) {
