@@ -40,11 +40,16 @@ img <- EBImage::channel(x = EBImage::readImage(img_file),mode = "rgb")
 
 res <- find_three_stickers(img = img)
 res
+# plot_platecrop(img,res)
 
 res <- find_fourth_point(x = res)
 res
 
 plot_platecrop(img,res)
+
+adjust_rectangle(points = res, v = 1.2, h = 1)
+
+
 
 dir.create("output")
 files <- crop_plate(img,res,prefix="output/example1.")
