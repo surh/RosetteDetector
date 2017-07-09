@@ -42,9 +42,7 @@ devtools::install("./")
 ```
 # Usage
 
-Look at `inst/scripts/pipeline.r`
-
-Vignette coming soon.
+For a basic introduction to the usage. Please look at the [basic pipeline vignette](inst/doc/pipeline.html).
 
 # Referencing
 
