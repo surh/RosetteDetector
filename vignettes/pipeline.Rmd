@@ -118,7 +118,7 @@ data("m1_20141021tiny")
 
 Then we can use the function `wrapper_predictdir_9feat`, which takes a directory of images, and
 finds the plant on each of them processively. Therefore, we pass the function the created output
-directory (which contains the output from cropping the imate), and the prevriously loaded SVM model
+directory (which contains the output from cropping the image), and the previously loaded SVM model
 Finally, we also pass some directory names that will be used to store more output.
 
 ```{r predict}
@@ -127,7 +127,7 @@ sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",mas
 
 The output of the previous command is a table with the filenames read, and the size of the plant in
 the corresponding file. The size is expressed in pixes, but we can use the sticker size to normalize
-the size and use that to compare accross different images. We also do some formatting and print the
+the size and use that to compare across different images. We also do some formatting and print the
 table:
 
 ```{r format}
