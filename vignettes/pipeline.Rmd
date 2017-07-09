@@ -105,3 +105,44 @@ by displaying the objects we created
 ```{r well, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
 display(crop$Wells[[12]])
 ```
+
+## Find the plant on each well
+
+Now we have split the original image into wells, we can find the plant on each. We can use a Support
+Vector Machine (SVM) classified to this job. An SVM requires a training set to learn how to distinguish
+a plant. You can use one of the pre-trained models in the package. Just load the mode with: 
+
+```{r loadm1}
+data("m1_20141021tiny")
+```
+
+Then we can use the function `wrapper_predictdir_9feat`, which takes a directory of images, and
+finds the plant on each of them processively. Therefore, we pass the function the created output
+directory (which contains the output from cropping the imate), and the prevriously loaded SVM model
+Finally, we also pass some directory names that will be used to store more output.
+
+```{r predict}
+sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
+```
+
+The output of the previous command is a table with the filenames read, and the size of the plant in
+the corresponding file. The size is expressed in pixes, but we can use the sticker size to normalize
+the size and use that to compare accross different images. We also do some formatting and print the
+table:
+
+```{r format}
+row.names(sizes) <- NULL
+sizes$Normalized.size <- sizes$npixels / res.adj$size
+sizes
+```
+
+You can look at the `overlay` and `mask` directories created by the prediction function. It will have
+one picture for every processed image, one indicating the outline of the plant, and the other containing
+a mask that can be used to extract further information
+
+## Calculate hull area
+
+One of the simplest plots to create is the
+
+## Descriptive plots
+
