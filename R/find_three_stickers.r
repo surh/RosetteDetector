@@ -17,6 +17,23 @@
 
 #' Find the three stickers in standard positions
 #' 
+#' Wrapper for \link{find_sticker} it finds three similar objects. It assumes that there are
+#' three objects that can be found with \link{find_sticker} which are named "topleft", "topright",
+#' and "bottomleft".
+#' 
+#' This function was designed with a specific setup in mind. Namely the need to identify a rectangular
+#' area that is defined by three colored points on each of three of its vertices. See the file
+#' example1.jpeg included with this package for an example.
+#' 
+#' @param img Image object. From EBImage.
+#' @param topleft.min,topleft.max The minimum and maximum RGB values defining a range on
+#' which a feature at position "topleft" is expected to exist.
+#' @param topright.min,topright.max Similar to above, but for an element at position topright.
+#' @param bottmleft.min,bottomleft.max Similar to above, but for an element at position bottomleft.
+#' @param return.image NOT IMPLEMENTED. Logical, indicating whether to return the masked object(s).
+#' 
+#' @author Sur Herrera Paredes
+#' 
 #' @export
 find_three_stickers <- function(img,
                                 toplef.min = c(0.1,0.25,0.25),
