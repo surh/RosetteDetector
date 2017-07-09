@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with RosetteDetector.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Predict fromm 9 features
+#' Predict from 9 features
 #' 
 #' @export
 wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1){

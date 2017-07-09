@@ -5,8 +5,27 @@
 \title{Crop plate}
 \usage{
 crop_plate(img, points, cols = 4, rows = 3, prefix = "", col.resize = 1,
-  row.resize = 1.2)
+  row.resize = 1.2, adjust.cell = 0, return.images = FALSE)
+}
+\arguments{
+\item{img}{Image object. Recommended to use EBImage objects, but any 3-dimensional
+matrix would work}
+
+\item{points}{A list containing topleft, topright, bottomleft, and bottomright entries.
+Each entry must be a names numeric vector of length two with elements "m.cy" and "m.cy",
+which correspond to the x and y coordinates of each point}
+
+\item{cols, rows}{Number of columns and rows desired in the grid.}
+
+\item{prefix}{String with file prefix to append to filenames of resulting grid files.}
+
+\item{col.resize, row.resize}{NOT IMPLEMENTED. Eventually allowing to}
+
+\item{adjust.cell}{Number of pixels to increase every side of each cell rectangle.}
+
+\item{return.images}{Logical indicating whether image objects should be returned for the grid.
+Defaults to FALSE, which only generates output files.}
 }
 \description{
-Crops plate
+Crops plate into a grid
 }
