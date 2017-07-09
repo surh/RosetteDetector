@@ -142,7 +142,54 @@ a mask that can be used to extract further information
 
 ## Calculate hull area
 
-One of the simplest plots to create is the
+One of the simplest features to extract is the *convex hull* area. The *convex hull* is the smallest possible convex polygon that encapsulates a shape (in this case the plant); its area is normally a more
+stable feature than the rosette area. We can use the function `hull_area_from_mask` to calculate it.
+We iterate through all the files in the `mask` directory created in the previous section, and append
+the results to the `sizes` table. We also normalize the values according to the size of the stickers
+in the original plate image:
+
+```{r hull}
+# Calculate hull area from file
+maskdir <- "mask/"
+sizes$Hull.area <- NULL
+for(i in 1:nrow(sizes)){
+  file <- as.character(sizes$file[i])
+  file <- paste(maskdir,"/",basename(file),sep = "")
+  cat(file,"\n")
+  mask <- readImage(file)
+  sizes$Hull.area[i] <- hull_area_from_masks(mask)
+}
+sizes$Normalized.hull.area <- sizes$Hull.area / res$size
+sizes
+```
 
 ## Descriptive plots
 
+Finally, we can perform some plots of the plant sizes we identified. We first append some metadata
+information to the different wells.
+
+```{r metadata}
+# Some manual plot
+sizes$Type <- c(rep("dead",3),rep("+Bacteria",6),rep("No Bacteria",3))
+```
+
+Then we use ggplot2 to compare the rosette area, and its hull area. They are quite consistent,
+so we plot the hull area only as a function of the sample type.
+
+```{r descriptive}
+p1 <- ggplot(sizes,aes(x = Normalized.hull.area, y = Normalized.size, col = Type)) +
+  geom_point(size = 3) + 
+  theme(panel.background = element_blank(),
+        axis.text = element_text(color = "black"),
+        axis.title = element_text(color = "black", face = "bold"),
+        panel.border = element_rect(color = "black", fill = NA, size = 2))
+p1
+
+p1 <- ggplot(sizes,aes(x = Type, y = Normalized.hull.area, col = Type)) +
+  geom_point(size = 3) +
+  theme(panel.background = element_blank(),
+        axis.text = element_text(color = "black"),
+        axis.title = element_text(color = "black", face = "bold"),
+        panel.border = element_rect(color = "black", fill = NA, size = 2))
+p1
+```
