@@ -30,7 +30,7 @@ on each well to basic size measurments of the plants. The steps are as follow:
 
 The first thing to do is to load the RosetteDetector. We will also load the ggplot2 package that we will use later to make some descriptive plots. Then, we load the `example1.jpeg` image that is included with the RosetteDetector package:
 
-```{r}
+```{r load}
 library(RosetteDetector)
 library(ggplot2)
 img_file <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
@@ -45,11 +45,63 @@ display(img)
 
 ## Finding the plate
 
-Our strategy to find the plate is to use the three colored stickers. Each one has a different color and was located in a known position, withAfter loading the image we can use the function `find_three_stickers` to i
+Our strategy to find the plate is to use the three round colored stickers. Each one has a different color and was located in a known position, with the blue sticker in the top left position, the magenta sticker in the topright position, and the red sticker in the bottom right position.
 
-```{r}
+We can find the position of those three stickers with the function `find_three_stickers`. This function takes a range of RGB values (specified as mininmum and maximum) for each position. For this image we can use the values below:
+
+```{r findstickers}
 # Find rectangle
-res <- find_three_stickers(img = img)
+res <- find_three_stickers(img = img,
+                    toplef.min = c(0.1, 0.25, 0.25), topleft.max = c(0.25, 0.3, 0.4),
+                    topright.min = c(0.1, 0, 0.1), topright.max = c(0.2, 0.15, 0.3),
+                    bottomleft.min = c(0.2, 0.1, 0.1), bottomleft.max = c(0.4, 0.2, 0.2))
+```
+
+The result of the previous command gives us the coordinates of each sticker, which corresponds to three of
+the vertices of the 12-well plate. We can use those 3 known vertices to find the fourth by using the function
+`find_fourth_sticker`. We can the use the function `plot_platecrop` to see where the three original stickers,
+and the final fourth position (labelled as a yellow circle) were identified. 
+
+```{r four_cornes, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
 res <- find_fourth_point(x = res)
 plot_platecrop(img,res)
+```
+
+While the stickers are correctly identified, it is important to note that the stickers were not in exact corners of the plate. As such, the space defined by the four points does not encapsulate the whole region
+of the 12-well plate that interests us. We can use the `adjust_rectangle` function to increase the distance
+between the four points. The following command add 30 pixels (on both directions) on each of the short sides
+of the *rectangle* defined by the four points (note that technically it is a trapezoid, since we did not
+confirm that the triangle from the original three points was a right triangle). After that, we plot the
+newly adjusted points:
+
+```{r adjust,fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+# Adjust coordinates of rectangle
+res.adj <- adjust_rectangle(points = res, v = 30, h = 0)
+plot_platecrop(img,res.adj)
+```
+
+With this adjustment the four points now encapsulate all of the wells, so we can proceed to crop the
+image.
+
+## Crop plate
+
+We can now crop the plate making an image that corresponds to each well. We first create a directory
+to save the output (one file per well), and then we use the function `crop_plate` to generate the files.
+In this case, we also set `return.images = TRUE` wich will return a list including an image object per
+well; for big images this can be very memory expensive and so it is not recommended, but it is fine
+in this example.
+
+```{r crop}
+# Crop image
+dir.create("output")
+crop <- crop_plate(img,res.adj,prefix="output/example1.",
+                   cols = 4, rows = 3,return.images = TRUE,
+                   adjust.cell = 10)
+```
+
+We can then look at the individual well images, either by opening the files externally or, in this case,
+by displaying the objects we created
+
+```{r well, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+display(crop$Wells[[12]])
 ```
