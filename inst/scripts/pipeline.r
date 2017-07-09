@@ -20,8 +20,6 @@ library(RosetteDetector)
 img_file <- base::system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
 # img_file <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
 img <- EBImage::channel(x = EBImage::readImage(img_file),mode = "rgb")
-# mins <- c(0,0.2,0.3)
-# maxs <- c(0.15,0.3,0.5)
 
 # # This finds top left
 # res <- find_sticker(img = img, mins = c(0.1,0.25,0.25), maxs = c(0.25,0.3,0.4), return.img = TRUE)
@@ -38,33 +36,21 @@ img <- EBImage::channel(x = EBImage::readImage(img_file),mode = "rgb")
 # res
 # display(res$img)
 
+# Find rectangle
 res <- find_three_stickers(img = img)
-res
-# plot_platecrop(img,res)
-
 res <- find_fourth_point(x = res)
-res
-
 plot_platecrop(img,res)
 
+# Adjust coordinates of rectangle
 res.adj <- adjust_rectangle(points = res, v = 30, h = 0)
 plot_platecrop(img,res.adj)
 
-# res.adj <- adjust_rectangle(points = res, v = -30, h = 0)
-# plot_platecrop(img,res.adj)
-# 
-# res.adj <- adjust_rectangle(points = res, v = 0, h = 30)
-# plot_platecrop(img,res.adj)
-# 
-# res.adj <- adjust_rectangle(points = res, v = 0, h = -30)
-# plot_platecrop(img,res.adj)
-# 
-# res.adj <- adjust_rectangle(points = res, v = 30, h = 30)
-# plot_platecrop(img,res.adj)
-
+# Crop file
 dir.create("output")
-files <- crop_plate(img,res.adj,prefix="output/example1.")
+crop <- crop_plate(img,res.adj,prefix="output/example1.",cols = 4, rows = 3,return.images = TRUE,
+                   adjust.cell = 10)
 
+# 
 data("m1_20141021tiny")
 sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
 sizes$Normalized.size <- sizes$npixels / res$size
