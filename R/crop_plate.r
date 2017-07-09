@@ -26,7 +26,7 @@
 #' which correspond to the x and y coordinates of each point
 #' @param cols,rows Number of columns and rows desired in the grid.
 #' @param prefix String with file prefix to append to filenames of resulting grid files.
-#' @param adjust.cell NOT IMPLEMENTED. Number of pixels to increase every side of each cell rectangle.
+#' @param adjust.cell Number of pixels to increase every side of each cell rectangle.
 #' @param col.resize,row.resize NOT IMPLEMENTED. Eventually allowing to 
 #' @param return.images Logical indicating whether image objects should be returned for the grid.
 #' Defaults to FALSE, which only generates output files.
@@ -35,6 +35,9 @@
 crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
                        col.resize = 1, row.resize = 1.2, adjust.cell = 0,
                        return.images = FALSE){
+  # points <- res.adj
+  # cols <- 4
+  # rows <- 3
   
   col.grid <- get_one_grid_dim(A = points$topleft, B = points$topright, n = cols)
   row.grid <- get_one_grid_dim(A = points$topleft, B = points$bottomleft, n = rows)
@@ -42,18 +45,31 @@ crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
   Res <- NULL
   Wells <- list()
   for(col_i in 1:cols){
-    # col_i <- 2
+    # col_i <- 1
     for(row_i in 1:rows){
-      # row_i <- 2
+      # row_i <- 1
       
       # This can be used to then call the adjust_square function and adjust the well size
-      # A <- c(col.grid[col_i, "x"], row.grid[row_i, "y"])
-      # B <- c(col.grid[col_i + 1, "x"], row.grid[row_i, "y"])
-      # C <- c(col.grid[col_i, "x"], row.grid[row_i + 1, "y"])
-      # D <- c(col.grid[col_i + 1, "x"], row.grid[row_i + 1, "y"])
+      A <- c(col.grid[col_i, "m.cx"], row.grid[row_i, "m.cy"])
+      B <- c(col.grid[col_i + 1, "m.cx"], row.grid[row_i, "m.cy"])
+      C <- c(col.grid[col_i, "m.cx"], row.grid[row_i + 1, "m.cy"])
+      D <- c(col.grid[col_i + 1, "m.cx"], row.grid[row_i + 1, "m.cy"])
       
-      well <- img[ round(col.grid[col_i, "x"]):round(col.grid[col_i + 1, "x"]),
-                   round(row.grid[row_i, "y"]):round(row.grid[row_i + 1, "y"]),  ]
+      if(adjust.cell != 0){
+        new.points <- adjust_rectangle(points = list(topleft = A,
+                                                     topright = B,
+                                                     bottomleft = C,
+                                                     bottomright = D),
+                                       v = adjust.cell,
+                                       h = adjust.cell)
+        A <- new.points$topleft
+        B <- new.points$topright
+        C <- new.points$bottomleft
+        D <- new.points$bottomright
+      }
+      
+      well <- img[ round(A["m.cx"]):round(B["m.cx"]),
+                   round(A["m.cy"]):round(C["m.cy"]),  ]
       # display(well)
       
       filename <- paste(prefix,"col",col_i,".row",row_i,".jpeg",sep="")
@@ -94,7 +110,7 @@ get_one_grid_dim <- function(A,B,n) {
   grid.x <- x1 + dis.delta * delta.x
   grid.y <- y1 + dis.delta * delta.y
   
-  res <- cbind(x = grid.x, y = grid.y)
+  res <- cbind(m.cx = grid.x, m.cy = grid.y)
   
   return(res)
 }

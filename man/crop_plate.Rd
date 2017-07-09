@@ -21,7 +21,7 @@ which correspond to the x and y coordinates of each point}
 
 \item{col.resize, row.resize}{NOT IMPLEMENTED. Eventually allowing to}
 
-\item{adjust.cell}{NOT IMPLEMENTED. Number of pixels to increase every side of each cell rectangle.}
+\item{adjust.cell}{Number of pixels to increase every side of each cell rectangle.}
 
 \item{return.images}{Logical indicating whether image objects should be returned for the grid.
 Defaults to FALSE, which only generates output files.}
