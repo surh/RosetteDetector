@@ -35,9 +35,6 @@
 crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
                        col.resize = 1, row.resize = 1.2, adjust.cell = 0,
                        return.images = FALSE){
-  # points <- res.adj
-  # cols <- 4
-  # rows <- 3
   
   col.grid <- get_one_grid_dim(A = points$topleft, B = points$topright, n = cols)
   row.grid <- get_one_grid_dim(A = points$topleft, B = points$bottomleft, n = rows)
@@ -77,7 +74,7 @@ crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
       res <- data.frame(Col = col_i, Row = row_i, File = filename)
       Res <- rbind(Res,res)
       if(return.images){
-        Wells[[cols * rows]] <- well 
+        Wells[[(col_i -1) * rows + row_i]] <- well 
       }
     }
   }

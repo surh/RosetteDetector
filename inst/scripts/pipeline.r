@@ -17,9 +17,9 @@
 
 library(RosetteDetector)
 
-img_file <- base::system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
+img_file <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
 # img_file <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
-img <- EBImage::channel(x = EBImage::readImage(img_file),mode = "rgb")
+img <- readImage(img_file)
 
 # # This finds top left
 # res <- find_sticker(img = img, mins = c(0.1,0.25,0.25), maxs = c(0.25,0.3,0.4), return.img = TRUE)
