@@ -1,0 +1,55 @@
+---
+title: "Basic imaging pipeline"
+author: "Sur Herrera Paredes"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+graphics: yes
+vignette: >
+  %\VignetteIndexEntry{Basic imaging pipeline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE}
+library(knitr)
+options(EBImage.display = "raster")
+.dpi = 100
+opts_chunk$set(fig.align="center", dpi=.dpi)
+```
+
+This file describes a basic pipeline that goes from a picture of a 12-wel plate with individual plants
+on each well to basic size measurments of the plants. The steps are as follow:
+
+1. Find the color marks that indicate the plate position.
+2. Crop the plate into individual wells.
+3. Find the plant on each well
+4. Calculate hull area of each plant
+5. Makes some descriptive plots
+
+## Loading the data
+
+The first thing to do is to load the RosetteDetector. We will also load the ggplot2 package that we will use later to make some descriptive plots. Then, we load the `example1.jpeg` image that is included with the RosetteDetector package:
+
+```{r}
+library(RosetteDetector)
+library(ggplot2)
+img_file <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
+img <- readImage(img_file)
+```
+
+We can now display the image. In this particular setup a 12-well plate (4 x 3) was used, and three colored stickers wer positioned in three of the plate vertices as can be seen below.
+
+```{r display, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+display(img)
+```
+
+## Finding the plate
+
+Our strategy to find the plate is to use the three colored stickers. Each one has a different color and was located in a known position, withAfter loading the image we can use the function `find_three_stickers` to i
+
+```{r}
+# Find rectangle
+res <- find_three_stickers(img = img)
+res <- find_fourth_point(x = res)
+plot_platecrop(img,res)
+```
