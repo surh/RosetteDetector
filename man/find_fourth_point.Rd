@@ -6,6 +6,16 @@
 \usage{
 find_fourth_point(x)
 }
+\arguments{
+\item{x}{A list containing elements "topleft", "topright" and "bottomleft". Each of
+those entries must be a named vector with elements indexe by "m.cx" and "m.cy" to
+indicate the x and y coordindates. There should also be a "bottomright" null element}
+}
+\value{
+A list with the same elements as x, plus the values for "bottomright"
+}
 \description{
-Find fourth point
+Takes a list specifying the coordinates of three points and performs vector
+addition to find the fourth point that defines a trapezoid with the original
+three points
 }

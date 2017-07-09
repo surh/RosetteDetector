@@ -6,6 +6,24 @@
 \usage{
 get_one_grid_dim(A, B, n)
 }
+\arguments{
+\item{A, B}{point coordinates degfininf the original segment.
+Must be named vectors with entries named "m.cx" and "m.cy" for
+x and y coordinates}
+
+\item{n}{Number of points along the segment to return.}
+}
+\value{
+A matrix containing the coordinates of the n points
+}
 \description{
+Takes points defining a segment. And returns a set of n
+points along that segment that divide the segment in 
+n-1 equal length segments
+}
+\details{
 Internal
+}
+\author{
+Sur Herrera Paredes
 }

@@ -17,7 +17,21 @@
 
 #' Find sticker
 #' 
-#' Finds position of a sticker based on thresholds
+#' This functions takes a range of RGB values (minimums and maximums), and
+#' finds the largest connected set of pixels that fall within those ranges.
+#' 
+#' @param img An image object. From the EBImage pacjage
+#' @param mins,maxs Vectors of length three indicating the minimum and maxiimum values
+#' (inclusive) for each of the RGB channels.
+#' @param return.img logical indicating whether the thresholded image object must be reurned.
+#' 
+#' @return A list with elements:
+#' \itemize{
+#'   \item{pos}{The coordinates of the center of mass of the region found}
+#'   \item{size}{The number of pixels in the area found}
+#'   \item{img}{If return.img = TRUE, then this is an image object with the thresholded
+#'   image}
+#' }
 #' 
 #' @author Sur Herrera Paredes
 #' 
