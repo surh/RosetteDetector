@@ -6,6 +6,22 @@
 \usage{
 calculate_gradient(x)
 }
+\arguments{
+\item{x}{Image object, must be only 2-dimensional}
+}
+\value{
+A list with elements:
+\itemize{
+  \item{x}{The same image passed}
+  \item{gradx}{The gradient on the X-axis}
+  \item{grady}{The gradient on the Y-axis}
+  \item{magnitude}{The overall gradient magnitude}
+  \item{orientation}{the overal gradient orientation}
+}
+}
 \description{
-Calculate gradient
+Calculates gradient for a single layer
+}
+\author{
+Sur Herrera Paredes
 }

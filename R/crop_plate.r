@@ -86,7 +86,20 @@ crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
 
 #' Get one dimension on grid
 #' 
+#' Takes points defining a segment. And returns a set of n
+#' points along that segment that divide the segment in 
+#' n-1 equal length segments
+#' 
 #' Internal
+#' 
+#' @param A,B point coordinates degfininf the original segment.
+#' Must be named vectors with entries named "m.cx" and "m.cy" for
+#' x and y coordinates
+#' @param n Number of points along the segment to return.
+#' 
+#' @return A matrix containing the coordinates of the n points
+#' 
+#' @author Sur Herrera Paredes
 get_one_grid_dim <- function(A,B,n) {
   
   x1 <- y1 <- x2 <- y2 <- NULL
