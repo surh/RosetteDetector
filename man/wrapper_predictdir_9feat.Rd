@@ -2,10 +2,10 @@
 % Please edit documentation in R/wrapper_predictdir_9feat.r
 \name{wrapper_predictdir_9feat}
 \alias{wrapper_predictdir_9feat}
-\title{Predict fromm 9 features}
+\title{Predict from 9 features}
 \usage{
 wrapper_predictdir_9feat(img_dir, overlaydir, maskdir, m1)
 }
 \description{
-Predict fromm 9 features
+Predict from 9 features
 }
