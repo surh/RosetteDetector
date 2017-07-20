@@ -65,9 +65,19 @@ display(res$img)
 
 
 # Find rectangle
-res <- find_three_stickers(img = img)
-res <- find_fourth_point(x = res)
-plot_platecrop(img,res)
+res1 <- find_three_stickers(img = log(img1) + 1, toplef.min = c(0.0,0.20,0.20), topleft.max = c(0.25,0.3,0.4),
+                            topright.min = c(0.0,-0.7,0.0), topright.max = c(0.15,-0.2,0.2),
+                            bottomleft.min = c(0.1,-0.2,-0.2), bottomleft.max = c(0.4,0.1,0.1))
+res1 <- find_fourth_point(x = res1)
+plot_platecrop(img1,res1)
+
+res2 <- find_three_stickers(img = log(img2) + 1, toplef.min = c(0.0,0.20,0.20), topleft.max = c(0.25,0.3,0.4),
+                            topright.min = c(0.0,-0.7,0.0), topright.max = c(0.15,-0.2,0.2),
+                            bottomleft.min = c(0.1,-0.2,-0.2), bottomleft.max = c(0.4,0.1,0.1))
+plot_platecrop(img2, res2)
+res2 <- find_fourth_point(x = res2)
+plot_platecrop(img2,res2)
+
 
 # Adjust coordinates of rectangle
 res.adj <- adjust_rectangle(points = res, v = 30, h = 0)
