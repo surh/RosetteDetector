@@ -17,6 +17,18 @@
 
 #' Get feature values
 #' 
+#' From an image it calculates 3 values per color chanel.
+#' 
+#' It obtrains the chanel intensity, as well as the chanel intensity gradient
+#' and gradient orientation.
+#' 
+#' @param Img An image object. Should be from EBImage, but any three dimensional
+#' matrix with 3 chanels specified by the last dimension should work.
+#' 
+#' @return A data.frame with feature values for all pixels
+#' 
+#' @author Sur Herrera Paredes
+#' 
 #' @export
 get_values <- function(Img){
 #   Img <- Images[[1]]

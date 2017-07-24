@@ -17,6 +17,23 @@
 
 #' Make cell histograms
 #' 
+#' This functions makes histograms of gradients per *cells* in a figure. It is intendend
+#' to be the first step in the **histograms of oriented gradients** (HOG) method which can be
+#' used as input for object detection. The following steps of the method are not implemented
+#' and thus this function is here for experimental reasons. It might be rewritten, modified,
+#' updated or deprecated in the future
+#' 
+#' @param x An image object. Must be a two-dimensional matrix
+#' @param nbins Number of bins to use for the histograms that are th inpit to HOG.
+#' @param cellsize Cell size for HOG. Algorithm will make squre cells of whre each side is
+#' of size *cellsize*.
+#' 
+#' @author Sur Herrera Paredes
+#' 
+#' @return A data.frame where each row corresponds to  cell. The data.frame has *nbins* + 2 columns
+#' whre the firs two columns indicate the cell position, followd by  *nbins* columns corresponding
+#' to each of the histogram bins.
+#' 
 #' @export
 make_cell_histograms <- function(x,nbins=9,cellsize=8){
   #   x <- pot1.full
