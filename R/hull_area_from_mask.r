@@ -17,6 +17,20 @@
 
 #' Hull area from mask
 #' 
+#' From an image mask, it calcultates the hull area of the unmasked object
+#' 
+#' The mask must be a two-dimensional matrix where 0 values indicate masked pixels,
+#' and non-zero values unmasked (selected) pixels. The convex hull is the smallest
+#' convex polygon that encapsulates all the unmasked pixels, and this function returns
+#' the area of that polygon
+#' 
+#' @param img A two-dimensional matrix representing an image mask. Any non-zero pixel is
+#' considered as part of the oject that wants to be encapsulated.
+#' 
+#' @return The area (in pixels) of the convex hull
+#' 
+#' @author Sur Herrera Paredes
+#' 
 #' @export
 hull_area_from_masks <- function(img){
   # mask <- readImage("mask/example1.col2.row1.jpeg")
