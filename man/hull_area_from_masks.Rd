@@ -6,6 +6,22 @@
 \usage{
 hull_area_from_masks(img)
 }
+\arguments{
+\item{img}{A two-dimensional matrix representing an image mask. Any non-zero pixel is
+considered as part of the oject that wants to be encapsulated.}
+}
+\value{
+The area (in pixels) of the convex hull
+}
 \description{
-Hull area from mask
+From an image mask, it calcultates the hull area of the unmasked object
+}
+\details{
+The mask must be a two-dimensional matrix where 0 values indicate masked pixels,
+and non-zero values unmasked (selected) pixels. The convex hull is the smallest
+convex polygon that encapsulates all the unmasked pixels, and this function returns
+the area of that polygon
+}
+\author{
+Sur Herrera Paredes
 }

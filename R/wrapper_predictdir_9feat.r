@@ -17,6 +17,18 @@
 
 #' Predict from 9 features
 #' 
+#' Takes a directory of images, and tries to predict on all images on that directory
+#' 
+#' @param img_dir Directory name where images files are
+#' @param overlaydir directory anem where to save the overlay images
+#' @param maskdir directory name where the mask files are saved
+#' @param m1 trained SVM model from e1071 used for prediction
+#' 
+#' @author Sur Herrera Paredes
+#' 
+#' @return Data.frame showing file names processed and object size in pixels
+#' from each file
+#' 
 #' @export
 wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1){
   # Get image files and create output directories

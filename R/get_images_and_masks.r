@@ -17,6 +17,19 @@
 
 #' Get images and masks
 #' 
+#' Makes a list of matching images and their mask. Useful to bulk display mask
+#' images
+#' 
+#' Takes two directories, one for images and another for masks, then for every
+#' file in the mask directory (mask_dir), it looks for an \strong{identically} named file in the image
+#' directory (img_dir), creating a list of matching images and masks.
+#' 
+#' @param img_dir A directory where images are located
+#' @param mask_dir A directory containing \strong{only} mask files
+#' 
+#' @return A lust where each element is a list with elements img and
+#' mask. Each of those elements is an EBImage image object.
+#' 
 #' @export
 get_images_and_masks <- function(img_dir,mask_dir){
   # Read images

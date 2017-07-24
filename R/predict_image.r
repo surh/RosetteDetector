@@ -17,6 +17,21 @@
 
 #' Predict image
 #' 
+#' Takes an image file and a trained SVM model and predicts every pixel
+#' of the image.
+#' 
+#' @param picture filename of image to be analyzed
+#' @param m1 Trained SVM model from e1071
+#' @param size_threshold Minimum size in pixels that a feature must have to be kept
+#' @param predict_class Name of the class to be predicted. Must match a class name
+#' in \emph{m1}.
+#' @param outmask Directory name where to save the masks resulting from the pipeline.
+#' @param outoverlay Directory name where to save the overlay images.
+#' 
+#' @returns Size of the found feature
+#' 
+#' @author Sur Herrera Paredes
+#' 
 #' @export
 predict_image <- function(picture,m1,size_threshold=0,predict_class="plant",outmask = "outmask/",outoverlay = "outoverlay/"){
   #   picture <- pictures[1]

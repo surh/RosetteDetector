@@ -6,6 +6,26 @@
 \usage{
 make_cell_histograms(x, nbins = 9, cellsize = 8)
 }
+\arguments{
+\item{x}{An image object. Must be a two-dimensional matrix}
+
+\item{nbins}{Number of bins to use for the histograms that are th inpit to HOG.}
+
+\item{cellsize}{Cell size for HOG. Algorithm will make squre cells of whre each side is
+of size \emph{cellsize}.}
+}
+\value{
+A data.frame where each row corresponds to  cell. The data.frame has \emph{nbins} + 2 columns
+whre the firs two columns indicate the cell position, followd by  *nbins* columns corresponding
+to each of the histogram bins.
+}
 \description{
-Make cell histograms
+This functions makes histograms of gradients per \emph{cells} in a figure. It is intendend
+to be the first step in the \strong{histograms of oriented gradients} (HOG) method which can be
+used as input for object detection. The following steps of the method are not implemented
+and thus this function is here for experimental reasons. It might be rewritten, modified,
+updated or deprecated in the future
+}
+\author{
+Sur Herrera Paredes
 }
