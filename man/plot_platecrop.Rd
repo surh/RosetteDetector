@@ -6,9 +6,19 @@
 \usage{
 plot_platecrop(img, points)
 }
-\description{
-Plots plate and cropping parameters
+\arguments{
+\item{img}{An image file from EBImage.}
+
+\item{points}{A list with up to four sets of coordinates indicating the positions were to
+plot the circles. The list must contains elements \emph{topright}, \emph{topleft},
+\emph{bottomright}, and \emph{bottomleft}, each of which should ve a vector with entries
+"m.cx" and "m.cy" for the X- and Y-coordinates respectivelu. The list must also contain
+an enty called \emph{size} wich has the size in pixels of the circle to draw}
 }
-\details{
-Mostly for testing
+\description{
+Plots plate and cropping parameters. Mostly for testing, it uses raster plotting
+to plot the location of up to 4 circles on top of the image
+}
+\author{
+Sur Herrera Paredes
 }
