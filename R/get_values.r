@@ -49,15 +49,5 @@ get_values <- function(Img){
   img.molten$or_B <- melt(Grad_B$orientation)$value
   img.molten[is.na(img.molten)] <- 0
   
-  # select data
-#   Dat <- img.molten[ !img.molten$value, ]
-#   if(!is.null(n_bgpixels)){
-#     Dat <- Dat[sample(1:nrow(Dat),size=n_bgpixels),]
-#   }
-#   Dat <- rbind(Dat,img.molten[ img.molten$value, ])
-#   
-#   Dat$Var1 <- NULL
-#   Dat$Var2 <- NULL
-#   
   return(img.molten)
 }

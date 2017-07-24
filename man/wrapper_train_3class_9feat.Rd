@@ -8,6 +8,41 @@ wrapper_train_3class_9feat(img_dir, plant_mask_dir, soil_mask_dir,
   other_mask_dir, kernel = "radial", pixels_per_class = 1e+06,
   probability = TRUE)
 }
+\arguments{
+\item{img_dir}{Directory where images are located}
+
+\item{plant_mask_dir}{Directory where masks indicating plant location are located.
+This directory must contain one file per image on the img_dir file with exactly the
+same name, and the same dimensions, but wiht only one chanel. Any non-zero value
+is interpreted as presence of a plant}
+
+\item{soil_mask_dir}{Directory where masks indicating soil location are located.
+This directory must contain one file per image on the img_dir file with exactly the
+same name, and the same dimensions, but wiht only one chanel. Any non-zero value
+is interpreted as presence of a soil}
+
+\item{other_mask_dir}{Directory where masks indicating other location are located.
+This directory must contain one file per image on the img_dir file with exactly the
+same name, and the same dimensions, but wiht only one chanel. Any non-zero value
+is interpreted as presence of a other.}
+
+\item{kernel}{Type of kernel to use for SVM. See documentation from e1071}
+
+\item{pixels_per_class}{Not all pixels need to be used. Guud accuracy can be achieved
+with few pixels per class. Specify the number here.}
+
+\item{probability}{Logical indicating whether the SVM model must include probabilities
+or just classification}
+}
+\value{
+A list with elements m1 which contains the SVM trained model that can be used
+for prediction, and Dat element which is a data.frame containing the Data used to
+train the model
+}
 \description{
-Train on 3 classes and 9 functions
+Takes a directory of images and directories of masks for three different classes,
+and then trains an SVM three-class model on that data.
+}
+\author{
+Sur Herrera Paredes
 }

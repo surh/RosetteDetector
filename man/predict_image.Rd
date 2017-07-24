@@ -7,6 +7,24 @@
 predict_image(picture, m1, size_threshold = 0, predict_class = "plant",
   outmask = "outmask/", outoverlay = "outoverlay/")
 }
+\arguments{
+\item{picture}{filename of image to be analyzed}
+
+\item{m1}{Trained SVM model from e1071}
+
+\item{size_threshold}{Minimum size in pixels that a feature must have to be kept}
+
+\item{predict_class}{Name of the class to be predicted. Must match a class name
+in \emph{m1}.}
+
+\item{outmask}{Directory name where to save the masks resulting from the pipeline.}
+
+\item{outoverlay}{Directory name where to save the overlay images.}
+}
 \description{
-Predict image
+Takes an image file and a trained SVM model and predicts every pixel
+of the image.
+}
+\author{
+Sur Herrera Paredes
 }
