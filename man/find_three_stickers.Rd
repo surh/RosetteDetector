@@ -9,6 +9,28 @@ find_three_stickers(img, toplef.min = c(0.1, 0.25, 0.25),
   topright.max = c(0.2, 0.15, 0.3), bottomleft.min = c(0.2, 0.1, 0.1),
   bottomleft.max = c(0.4, 0.2, 0.2), return.img = FALSE)
 }
+\arguments{
+\item{img}{Image object. From EBImage.}
+
+\item{topright.min, topright.max}{Similar to above, but for an element at position topright.}
+
+\item{topleft.min, topleft.max}{The minimum and maximum RGB values defining a range on
+which a feature at position "topleft" is expected to exist.}
+
+\item{bottmleft.min, bottomleft.max}{Similar to above, but for an element at position bottomleft.}
+
+\item{return.image}{NOT IMPLEMENTED. Logical, indicating whether to return the masked object(s).}
+}
 \description{
-Find the three stickers in standard positions
+Wrapper for \link{find_sticker} it finds three similar objects. It assumes that there are
+three objects that can be found with \link{find_sticker} which are named "topleft", "topright",
+and "bottomleft".
+}
+\details{
+This function was designed with a specific setup in mind. Namely the need to identify a rectangular
+area that is defined by three colored points on each of three of its vertices. See the file
+example1.jpeg included with this package for an example.
+}
+\author{
+Sur Herrera Paredes
 }

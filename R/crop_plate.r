@@ -17,47 +17,114 @@
 
 #' Crop plate
 #' 
-#' Crops plate
+#' Crops plate into a grid
+#' 
+#' @param img Image object. Recommended to use EBImage objects, but any 3-dimensional
+#' matrix would work
+#' @param points A list containing topleft, topright, bottomleft, and bottomright entries.
+#' Each entry must be a names numeric vector of length two with elements "m.cy" and "m.cy",
+#' which correspond to the x and y coordinates of each point
+#' @param cols,rows Number of columns and rows desired in the grid.
+#' @param prefix String with file prefix to append to filenames of resulting grid files.
+#' @param adjust.cell Number of pixels to increase every side of each cell rectangle.
+#' @param col.resize,row.resize NOT IMPLEMENTED. Eventually allowing to 
+#' @param return.images Logical indicating whether image objects should be returned for the grid.
+#' Defaults to FALSE, which only generates output files.
 #' 
 #' @export
 crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
-                       col.resize = 1, row.resize = 1.2){
-
-  # Eventually I want to solve it with linear equations
-  # origin <- points$topleft
-  # end <- points$topright
-  # 
-  # slope.top <- (origin[ "m.cy" ] - end[ "m.cy" ]) /
-  #   (origin[ "m.cx" ] - end[ "m.cx" ])
-  # intercept.top <- points$topleft[ "m.cy" ] - slope.top * points$topleft[ "m.cx" ]
-  # dist.top <- dist(rbind(points$topleft[ c("m.cx","m.cy")],points$topright[ c("m.cx","m.cy")]))
-  # dis.target <- seq(from = 0, to = dist.top, length.out = cols)
-  # 
-  # # Numbers for quadratic general equation
-  # a.quad <- 1 + slope.top^2
-  # b.quad <- 2*(intercept.top*slope.top - origin["m.cx"] - origin["m.cy"]*slope.top)
-  # c.quad <- intercept.top^2 - 2*origin["m.cy"]*intercept.top + sum(origin^2) + dis.target[2]^2
-  # 
-  # x.new <- (-b.quad + sqrt(b.quad^2 - 4*a.quad*c.quad)) / (2*a.quad)
-  # y.new <- slope.top + intercept.top*x.new
+                       col.resize = 1, row.resize = 1.2, adjust.cell = 0,
+                       return.images = FALSE){
   
-  # Move points
-  col.borders <- seq(from = points$topleft["m.cx"],to = points$topright["m.cx"],length.out = cols + 1)
-  row.borders <- seq(from = points$topleft["m.cy"],to = points$bottomleft["m.cy"],length.out = rows + 1)
-  col.borders <- round(col.borders)
-  row.borders <- round(row.borders)
+  col.grid <- get_one_grid_dim(A = points$topleft, B = points$topright, n = cols)
+  row.grid <- get_one_grid_dim(A = points$topleft, B = points$bottomleft, n = rows)
   
   Res <- NULL
+  Wells <- list()
   for(col_i in 1:cols){
-    #col_i <- 1
+    # col_i <- 1
     for(row_i in 1:rows){
-      #row_i <- 1
-      well <- img[col.borders[col_i]:col.borders[col_i+1], row.borders[row_i]:row.borders[row_i+1],  ]
+      # row_i <- 1
+      
+      # This can be used to then call the adjust_square function and adjust the well size
+      A <- c(col.grid[col_i, "m.cx"], row.grid[row_i, "m.cy"])
+      B <- c(col.grid[col_i + 1, "m.cx"], row.grid[row_i, "m.cy"])
+      C <- c(col.grid[col_i, "m.cx"], row.grid[row_i + 1, "m.cy"])
+      D <- c(col.grid[col_i + 1, "m.cx"], row.grid[row_i + 1, "m.cy"])
+      
+      if(adjust.cell != 0){
+        new.points <- adjust_rectangle(points = list(topleft = A,
+                                                     topright = B,
+                                                     bottomleft = C,
+                                                     bottomright = D),
+                                       v = adjust.cell,
+                                       h = adjust.cell)
+        A <- new.points$topleft
+        B <- new.points$topright
+        C <- new.points$bottomleft
+        D <- new.points$bottomright
+      }
+      
+      # well <- img[ round(A["m.cx"]):round(B["m.cx"]),
+      #              round(A["m.cy"]):round(C["m.cy"]),  ]
+      well <- img[ max(1,round(A["m.cx"])):min(dim(img)[1],round(B["m.cx"])),
+                   max(1,round(A["m.cy"])):min(dim(img)[2],round(C["m.cy"])),  ]
+      
+      # display(well)
+      
+      
       filename <- paste(prefix,"col",col_i,".row",row_i,".jpeg",sep="")
       writeImage(well, filename)
       res <- data.frame(Col = col_i, Row = row_i, File = filename)
       Res <- rbind(Res,res)
+      if(return.images){
+        Wells[[(col_i -1) * rows + row_i]] <- well 
+      }
     }
   }
+  if(return.images)
+    Res <- list(Files = Res, Wells = Wells)
+  
   return(Res)
+}
+
+#' Get one dimension on grid
+#' 
+#' Takes points defining a segment. And returns a set of n
+#' points along that segment that divide the segment in 
+#' n-1 equal length segments
+#' 
+#' Internal
+#' 
+#' @param A,B point coordinates degfininf the original segment.
+#' Must be named vectors with entries named "m.cx" and "m.cy" for
+#' x and y coordinates
+#' @param n Number of points along the segment to return.
+#' 
+#' @return A matrix containing the coordinates of the n points
+#' 
+#' @author Sur Herrera Paredes
+get_one_grid_dim <- function(A,B,n) {
+  
+  x1 <- y1 <- x2 <- y2 <- NULL
+  
+  x1 <- A["m.cx"]
+  y1 <- A["m.cy"]
+  x2 <- B["m.cx"]
+  y2 <- B["m.cy"]
+  
+  if(is.null(x1) || is.null(x2) || is.null(y1) || is.null(y2))
+    stop("ERROR: some coordinates missing",call. = TRUE)
+  
+  delta.x <- (x2 - x1) / sqrt((x2-x1)^2 + (y2-y1)^2)
+  delta.y <- (y2 - y1) / sqrt((x2-x1)^2 + (y2-y1)^2)
+  dis <- dist(rbind(A[ c("m.cx","m.cy")],B[ c("m.cx","m.cy")]))
+  dis.delta <- seq(from = 0, to = dis, length.out = n + 1)
+  
+  grid.x <- x1 + dis.delta * delta.x
+  grid.y <- y1 + dis.delta * delta.y
+  
+  res <- cbind(m.cx = grid.x, m.cy = grid.y)
+  
+  return(res)
 }

@@ -17,6 +17,18 @@
 
 #' Melt channels
 #' 
+#' Takes an RGB image and \emph{melts} every chanel independently,
+#' by converting every cell into a line
+#' 
+#' @param x An RGB image
+#' @param varnames Character vector with the names to give the variables
+#' in the result
+#' 
+#' @return A data.frame where each row is a coordinate, and contains the value for that
+#' coordinate on each of the three chanels in the original image
+#' 
+#' @author Sur Herrera Paredes
+#' 
 #' @export
 melt_channels <- function(x,varnames=c("R","G","B")){
   #   x <- pot1

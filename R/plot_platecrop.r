@@ -17,9 +17,19 @@
 
 #' Plot platecrop
 #' 
-#' Plots plate and cropping parameters
+#' Plots plate and cropping parameters. Mostly for testing, it uses raster plotting
+#' to plot the location of up to 4 circles on top of the image
 #' 
-#' Mostly for testing
+#' @param img An image file from EBImage.
+#' @param points A list with up to four sets of coordinates indicating the positions were to
+#' plot the circles. The list must contains elements \emph{topright}, \emph{topleft},
+#' \emph{bottomright}, and \emph{bottomleft}, each of which should ve a vector with entries
+#' "m.cx" and "m.cy" for the X- and Y-coordinates respectivelu. The list must also contain
+#' an enty called \emph{size} wich has the size in pixels of the circle to draw
+#' 
+#' @returns The raster image of \emph{img}
+#' 
+#' @author Sur Herrera Paredes
 #' 
 #' @export
 plot_platecrop <- function(img,points){

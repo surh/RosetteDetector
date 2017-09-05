@@ -6,6 +6,20 @@
 \usage{
 get_values(Img)
 }
+\arguments{
+\item{Img}{An image object. Should be from EBImage, but any three dimensional
+matrix with 3 chanels specified by the last dimension should work.}
+}
+\value{
+A data.frame with feature values for all pixels
+}
 \description{
-Get feature values
+From an image it calculates 3 values per color chanel.
+}
+\details{
+It obtrains the chanel intensity, as well as the chanel intensity gradient
+and gradient orientation.
+}
+\author{
+Sur Herrera Paredes
 }
