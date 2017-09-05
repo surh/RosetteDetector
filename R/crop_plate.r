@@ -65,9 +65,13 @@ crop_plate <- function(img,points,cols = 4,rows = 3,prefix = "",
         D <- new.points$bottomright
       }
       
-      well <- img[ round(A["m.cx"]):round(B["m.cx"]),
-                   round(A["m.cy"]):round(C["m.cy"]),  ]
+      # well <- img[ round(A["m.cx"]):round(B["m.cx"]),
+      #              round(A["m.cy"]):round(C["m.cy"]),  ]
+      well <- img[ max(1,round(A["m.cx"])):min(dim(img)[1],round(B["m.cx"])),
+                   max(1,round(A["m.cy"])):min(dim(img)[2],round(C["m.cy"])),  ]
+      
       # display(well)
+      
       
       filename <- paste(prefix,"col",col_i,".row",row_i,".jpeg",sep="")
       writeImage(well, filename)
