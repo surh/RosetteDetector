@@ -24,6 +24,8 @@
 #' @param mins,maxs Vectors of length three indicating the minimum and maxiimum values
 #' (inclusive) for each of the RGB channels.
 #' @param return.img logical indicating whether the thresholded image object must be reurned.
+#' @param show.steps logical indicating whether the image from the different steps should be
+#' displayed.
 #' 
 #' @return A list with elements:
 #' \itemize{
@@ -36,7 +38,7 @@
 #' @author Sur Herrera Paredes
 #' 
 #' @export
-find_sticker <- function(img,mins,maxs,return.img = FALSE) {
+find_sticker <- function(img,mins,maxs,return.img = FALSE, show.steps = FALSE) {
   # img_file <- base::system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
   # mins <- c(0,0.2,0.3)
   # maxs <- c(0.15,0.3,0.5)
@@ -58,11 +60,19 @@ find_sticker <- function(img,mins,maxs,return.img = FALSE) {
     # display(mono.img <= 0.5)
     
     selected[[rgb.channel]] <- (mono.img >= mins[rgb.channel]) & (mono.img <= maxs[rgb.channel])
-    # display(selected)
+    if(show.steps){
+      display.title <- paste("Channel ",rgb.channel, sep = "")
+      cat("\t",display.title,"\n")
+      cat("\t",class(selected[[rgb.channel]]),"\n")
+      display(selected[[rgb.channel]],title = display.title)
+    }
+    
   }
   # Merge
   selected <- selected[[1]] & selected[[2]] & selected[[3]]
-  # display(selected)
+  if(show.steps){
+    display(selected, title = "Merged masks")
+  }
   
   # Segment and pick biggest
   selected <- EBImage::bwlabel(selected)
