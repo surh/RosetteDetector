@@ -1,7 +1,7 @@
 Package: RosetteDetector
 Type: Package
 Title: RosetteDetector
-Version: 0.0-3
+Version: 0.0-4
 Depends: EBImage(>= 4.6.0),
 	reshape2(>= 1.4),
 	e1071(>= 1.6-4),
