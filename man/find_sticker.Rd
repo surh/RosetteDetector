@@ -4,7 +4,7 @@
 \alias{find_sticker}
 \title{Find sticker}
 \usage{
-find_sticker(img, mins, maxs, return.img = FALSE)
+find_sticker(img, mins, maxs, return.img = FALSE, show.steps = FALSE)
 }
 \arguments{
 \item{img}{An image object. From the EBImage pacjage}
@@ -13,6 +13,9 @@ find_sticker(img, mins, maxs, return.img = FALSE)
 (inclusive) for each of the RGB channels.}
 
 \item{return.img}{logical indicating whether the thresholded image object must be reurned.}
+
+\item{show.steps}{logical indicating whether the image from the different steps should be
+displayed.}
 }
 \value{
 A list with elements:
