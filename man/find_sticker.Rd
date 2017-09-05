@@ -4,10 +4,31 @@
 \alias{find_sticker}
 \title{Find sticker}
 \usage{
-find_sticker(img, mins, maxs, return.img = FALSE)
+find_sticker(img, mins, maxs, return.img = FALSE, show.steps = FALSE)
+}
+\arguments{
+\item{img}{An image object. From the EBImage pacjage}
+
+\item{mins, maxs}{Vectors of length three indicating the minimum and maxiimum values
+(inclusive) for each of the RGB channels.}
+
+\item{return.img}{logical indicating whether the thresholded image object must be reurned.}
+
+\item{show.steps}{logical indicating whether the image from the different steps should be
+displayed.}
+}
+\value{
+A list with elements:
+\itemize{
+  \item{pos}{The coordinates of the center of mass of the region found}
+  \item{size}{The number of pixels in the area found}
+  \item{img}{If return.img = TRUE, then this is an image object with the thresholded
+  image}
+}
 }
 \description{
-Finds position of a sticker based on thresholds
+This functions takes a range of RGB values (minimums and maximums), and
+finds the largest connected set of pixels that fall within those ranges.
 }
 \author{
 Sur Herrera Paredes

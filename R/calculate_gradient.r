@@ -17,6 +17,21 @@
 
 #' Calculate gradient
 #' 
+#' Calculates gradient for a single layer
+#' 
+#' @param x Image object, must be only 2-dimensional
+#' 
+#' @return A list with elements:
+#' \itemize{
+#'   \item{x}{The same image passed}
+#'   \item{gradx}{The gradient on the X-axis}
+#'   \item{grady}{The gradient on the Y-axis}
+#'   \item{magnitude}{The overall gradient magnitude}
+#'   \item{orientation}{the overal gradient orientation}
+#' }
+#' 
+#' @author Sur Herrera Paredes
+#' 
 #' @export
 calculate_gradient <- function(x){
   #   x <- pot1[,,2]

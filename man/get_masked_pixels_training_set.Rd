@@ -6,6 +6,21 @@
 \usage{
 get_masked_pixels_training_set(Img)
 }
+\arguments{
+\item{Img}{A list where every element is a list with elements img and mask. See
+output from \link{get_images_and_masks} for example.}
+}
+\value{
+A data.frame of pixel features for unmasked pixels.
+}
 \description{
-Get masked pixels in training set
+Takes a a list of images and masks and extracts pixels and pixel features
+from the unmasked portion of the image
+}
+\details{
+This function extracts nine features from every pixel. Makes a table indicating pixke
+coordinates and feature values, and then subsets the table returning only unmasked pixels.
+
+The 9 features are the intensity values for the RGB space, as well as the gradient magnitude
+and gradient orientation for each color channel.
 }

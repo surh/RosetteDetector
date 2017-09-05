@@ -17,6 +17,34 @@
 
 #' Train on 3 classes and 9 functions
 #' 
+#' Takes a directory of images and directories of masks for three different classes,
+#' and then trains an SVM three-class model on that data.
+#' 
+#' @param img_dir Directory where images are located
+#' @param plant_mask_dir Directory where masks indicating plant location are located.
+#' This directory must contain one file per image on the img_dir file with exactly the
+#' same name, and the same dimensions, but wiht only one chanel. Any non-zero value
+#' is interpreted as presence of a plant
+#' @param soil_mask_dir Directory where masks indicating soil location are located.
+#' This directory must contain one file per image on the img_dir file with exactly the
+#' same name, and the same dimensions, but wiht only one chanel. Any non-zero value
+#' is interpreted as presence of a soil
+#' @param other_mask_dir Directory where masks indicating other location are located.
+#' This directory must contain one file per image on the img_dir file with exactly the
+#' same name, and the same dimensions, but wiht only one chanel. Any non-zero value
+#' is interpreted as presence of a other.
+#' @param kernel Type of kernel to use for SVM. See documentation from e1071
+#' @param pixels_per_class Not all pixels need to be used. Guud accuracy can be achieved
+#' with few pixels per class. Specify the number here.
+#' @param probability Logical indicating whether the SVM model must include probabilities
+#' or just classification
+#' 
+#' @author Sur Herrera Paredes
+#' 
+#' @return A list with elements m1 which contains the SVM trained model that can be used
+#' for prediction, and Dat element which is a data.frame containing the Data used to
+#' train the model
+#' 
 #' @export
 wrapper_train_3class_9feat <- function(img_dir,plant_mask_dir,soil_mask_dir,other_mask_dir,
                                        kernel = "radial",pixels_per_class = 1000000, probability = TRUE){

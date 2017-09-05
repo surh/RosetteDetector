@@ -1,0 +1,195 @@
+---
+title: "Basic imaging pipeline"
+author: "Sur Herrera Paredes"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+graphics: yes
+vignette: >
+  %\VignetteIndexEntry{Basic imaging pipeline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE}
+library(knitr)
+options(EBImage.display = "raster")
+.dpi = 100
+opts_chunk$set(fig.align="center", dpi=.dpi)
+```
+
+This file describes a basic pipeline that goes from a picture of a 12-wel plate with individual plants
+on each well to basic size measurments of the plants. The steps are as follow:
+
+1. Find the color marks that indicate the plate position.
+2. Crop the plate into individual wells.
+3. Find the plant on each well
+4. Calculate hull area of each plant
+5. Makes some descriptive plots
+
+## Loading the data
+
+The first thing to do is to load the RosetteDetector. We will also load the ggplot2 package that we will use later to make some descriptive plots. Then, we load the `example1.jpeg` image that is included with the RosetteDetector package:
+
+```{r load}
+library(RosetteDetector)
+library(ggplot2)
+img_file <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
+img <- readImage(img_file)
+```
+
+We can now display the image. In this particular setup a 12-well plate (4 x 3) was used, and three colored stickers wer positioned in three of the plate vertices as can be seen below.
+
+```{r display, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+display(img)
+```
+
+## Finding the plate
+
+Our strategy to find the plate is to use the three round colored stickers. Each one has a different color and was located in a known position, with the blue sticker in the top left position, the magenta sticker in the topright position, and the red sticker in the bottom right position.
+
+We can find the position of those three stickers with the function `find_three_stickers`. This function takes a range of RGB values (specified as mininmum and maximum) for each position. For this image we can use the values below:
+
+```{r findstickers}
+# Find rectangle
+res <- find_three_stickers(img = img,
+                    toplef.min = c(0.1, 0.25, 0.25), topleft.max = c(0.25, 0.3, 0.4),
+                    topright.min = c(0.1, 0, 0.1), topright.max = c(0.2, 0.15, 0.3),
+                    bottomleft.min = c(0.2, 0.1, 0.1), bottomleft.max = c(0.4, 0.2, 0.2))
+```
+
+The result of the previous command gives us the coordinates of each sticker, which corresponds to three of
+the vertices of the 12-well plate. We can use those 3 known vertices to find the fourth by using the function
+`find_fourth_sticker`. We can the use the function `plot_platecrop` to see where the three original stickers,
+and the final fourth position (labelled as a yellow circle) were identified. 
+
+```{r four_cornes, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+res <- find_fourth_point(x = res)
+plot_platecrop(img,res)
+```
+
+While the stickers are correctly identified, it is important to note that the stickers were not in exact corners of the plate. As such, the space defined by the four points does not encapsulate the whole region
+of the 12-well plate that interests us. We can use the `adjust_rectangle` function to increase the distance
+between the four points. The following command add 30 pixels (on both directions) on each of the short sides
+of the *rectangle* defined by the four points (note that technically it is a trapezoid, since we did not
+confirm that the triangle from the original three points was a right triangle). After that, we plot the
+newly adjusted points:
+
+```{r adjust,fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+# Adjust coordinates of rectangle
+res.adj <- adjust_rectangle(points = res, v = 30, h = 0)
+plot_platecrop(img,res.adj)
+```
+
+With this adjustment the four points now encapsulate all of the wells, so we can proceed to crop the
+image.
+
+## Crop plate
+
+We can now crop the plate making an image that corresponds to each well. We first create a directory
+to save the output (one file per well), and then we use the function `crop_plate` to generate the files.
+In this case, we also set `return.images = TRUE` wich will return a list including an image object per
+well; for big images this can be very memory expensive and so it is not recommended, but it is fine
+in this example.
+
+```{r crop}
+# Crop image
+dir.create("output")
+crop <- crop_plate(img,res.adj,prefix="output/example1.",
+                   cols = 4, rows = 3,return.images = TRUE,
+                   adjust.cell = 10)
+```
+
+We can then look at the individual well images, either by opening the files externally or, in this case,
+by displaying the objects we created
+
+```{r well, fig.width=dim(img)[1L]/.dpi, fig.height=dim(img)[2L]/.dpi, dpi=.dpi/2}
+display(crop$Wells[[12]])
+```
+
+## Find the plant on each well
+
+Now we have split the original image into wells, we can find the plant on each. We can use a Support
+Vector Machine (SVM) classified to this job. An SVM requires a training set to learn how to distinguish
+a plant. You can use one of the pre-trained models in the package. Just load the mode with: 
+
+```{r loadm1}
+data("m1_20141021tiny")
+```
+
+Then we can use the function `wrapper_predictdir_9feat`, which takes a directory of images, and
+finds the plant on each of them processively. Therefore, we pass the function the created output
+directory (which contains the output from cropping the image), and the previously loaded SVM model
+Finally, we also pass some directory names that will be used to store more output.
+
+```{r predict}
+sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
+```
+
+The output of the previous command is a table with the filenames read, and the size of the plant in
+the corresponding file. The size is expressed in pixes, but we can use the sticker size to normalize
+the size and use that to compare across different images. We also do some formatting and print the
+table:
+
+```{r format}
+row.names(sizes) <- NULL
+sizes$Normalized.size <- sizes$npixels / res.adj$size
+sizes
+```
+
+You can look at the `overlay` and `mask` directories created by the prediction function. It will have
+one picture for every processed image, one indicating the outline of the plant, and the other containing
+a mask that can be used to extract further information
+
+## Calculate hull area
+
+One of the simplest features to extract is the *convex hull* area. The *convex hull* is the smallest possible convex polygon that encapsulates a shape (in this case the plant); its area is normally a more
+stable feature than the rosette area. We can use the function `hull_area_from_mask` to calculate it.
+We iterate through all the files in the `mask` directory created in the previous section, and append
+the results to the `sizes` table. We also normalize the values according to the size of the stickers
+in the original plate image:
+
+```{r hull}
+# Calculate hull area from file
+maskdir <- "mask/"
+sizes$Hull.area <- NULL
+for(i in 1:nrow(sizes)){
+  file <- as.character(sizes$file[i])
+  file <- paste(maskdir,"/",basename(file),sep = "")
+  cat(file,"\n")
+  mask <- readImage(file)
+  sizes$Hull.area[i] <- hull_area_from_masks(mask)
+}
+sizes$Normalized.hull.area <- sizes$Hull.area / res$size
+sizes
+```
+
+## Descriptive plots
+
+Finally, we can perform some plots of the plant sizes we identified. We first append some metadata
+information to the different wells.
+
+```{r metadata}
+# Some manual plot
+sizes$Type <- c(rep("dead",3),rep("+Bacteria",6),rep("No Bacteria",3))
+```
+
+Then we use ggplot2 to compare the rosette area, and its hull area. They are quite consistent,
+so we plot the hull area only as a function of the sample type.
+
+```{r descriptive}
+p1 <- ggplot(sizes,aes(x = Normalized.hull.area, y = Normalized.size, col = Type)) +
+  geom_point(size = 3) + 
+  theme(panel.background = element_blank(),
+        axis.text = element_text(color = "black"),
+        axis.title = element_text(color = "black", face = "bold"),
+        panel.border = element_rect(color = "black", fill = NA, size = 2))
+p1
+p2 <- ggplot(sizes,aes(x = Type, y = Normalized.hull.area, col = Type)) +
+  geom_point(size = 3) +
+  theme(panel.background = element_blank(),
+        axis.text.y = element_text(color = "black"),
+        axis.text.x = element_blank(),
+        axis.title = element_text(color = "black", face = "bold"),
+        panel.border = element_rect(color = "black", fill = NA, size = 2))
+p2
+```
