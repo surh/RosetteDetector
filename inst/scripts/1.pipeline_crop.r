@@ -19,7 +19,7 @@ library(RosetteDetector)
 
 ######## General parameters #################
 indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/"
-indir <- base::system.file("images", package = "RosetteDetector", mustWork = TRUE)
+#indir <- base::system.file("images", package = "RosetteDetector", mustWork = TRUE)
 outdir <- "~/rhizogenomics/experiments/2017/today5/out/"
 
 toplef.min <- c(0.0,0.20,0.25)
@@ -105,56 +105,3 @@ for(file in files){
                      adjust.cell = 10)
   
 }
-
-
-
-
-# # Crop file
-# dir.create("output")
-# crop <- crop_plate(img,res.adj,prefix="output/example1.",cols = 4, rows = 3,return.images = TRUE,
-#                    adjust.cell = 10)
-# 
-# # 
-# data("m1_20141021tiny")
-# sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
-# sizes$Normalized.size <- sizes$npixels / res$size
-# sizes
-# 
-# # Calculate hull area from file
-# maskdir <- "mask/"
-# sizes$Hull.area <- NULL
-# for(i in 1:nrow(sizes)){
-#   file <- as.character(sizes$file[i])
-#   file <- paste(maskdir,"/",basename(file),sep = "")
-#   cat(file,"\n")
-#   mask <- readImage(file)
-#   sizes$Hull.area[i] <- hull_area_from_masks(mask)
-# }
-# sizes$Normalized.hull.area <- sizes$Hull.area / res$size
-# row.names(sizes) <- NULL
-# sizes
-# 
-# # Some manual plot
-# sizes$Type <- c(rep("dead",3),rep("+Bacteria",6),rep("No Bacteria",3))
-# sizes
-# 
-# p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Type, y = Normalized.hull.area, col = Type)) +
-#   ggplot2::geom_point() +
-#   AMOR::theme_blackbox
-# p1
-# 
-# p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Type, y = Normalized.size, col = Type)) +
-#   ggplot2::geom_point() + 
-#   AMOR::theme_blackbox
-# p1
-# 
-# p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Normalized.hull.area, y = Normalized.size, col = Type)) +
-#   ggplot2::geom_point() + 
-#   AMOR::theme_blackbox
-# p1
-# 
-# 
-# # # To generate combinations
-# # rows <- c(10,20,30)
-# # cols <- c(40,80,120,160)
-# # expand.grid(rows = rows, cols = cols)
