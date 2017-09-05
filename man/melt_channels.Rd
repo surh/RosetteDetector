@@ -6,6 +6,20 @@
 \usage{
 melt_channels(x, varnames = c("R", "G", "B"))
 }
+\arguments{
+\item{x}{An RGB image}
+
+\item{varnames}{Character vector with the names to give the variables
+in the result}
+}
+\value{
+A data.frame where each row is a coordinate, and contains the value for that
+coordinate on each of the three chanels in the original image
+}
 \description{
-Melt channels
+Takes an RGB image and \emph{melts} every chanel independently,
+by converting every cell into a line
+}
+\author{
+Sur Herrera Paredes
 }
