@@ -17,6 +17,19 @@
 
 library(RosetteDetector)
 
+# indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/"
+# 
+# 
+# files <- list.files(indir)
+# for(file in files){
+#   file <- files[1]
+#   
+#   pic_file <- paste(indir,"/",file, sep = "")
+#   cat(pic_file,"\n")
+# 
+# }
+
+
 img_file1 <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
 img_file2 <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
 img1 <- readImage(img_file1)
@@ -39,10 +52,13 @@ display(log(img1[,,1]+ 1))
 display(log(img2[,,1]+ 1))
 
 # This finds top left
-res <- find_sticker(img = log(img1) + 1, mins = c(0.0,0.20,0.20), maxs = c(0.25,0.3,0.4), return.img = TRUE)
+res <- find_sticker(img = log(img1) + 1, mins = c(0.0,0.20,0.25), maxs = c(0.25,0.3,0.4),
+                    return.img = TRUE, show.steps = TRUE)
 display(res$img)
 
-res <- find_sticker(img = log(img2) + 1, mins = c(0.0,0.20,0.20), maxs = c(0.25,0.3,0.4), return.img = TRUE)
+res <- find_sticker(img = log(img2) + 1, mins = c(0.0,0.20,0.25), maxs = c(0.25,0.3,0.4),
+                    return.img = TRUE, show.steps = TRUE)
+
 display(res$img)
 
 
