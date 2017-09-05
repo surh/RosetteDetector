@@ -17,59 +17,81 @@
 
 library(RosetteDetector)
 
+date()
+
 ######## General parameters #################
-outdir <- "~/rhizogenomics/experiments/2017/today5/out/"
+indir <- "~/rhizogenomics/experiments/2017/today5/out/"
 
+outdir <- indir
 
-
-
-
-# Crop file
-dir.create("output")
-crop <- crop_plate(img,res.adj,prefix="output/example1.",cols = 4, rows = 3,return.images = TRUE,
-                   adjust.cell = 10)
-
-#
+# Predict size directory
 data("m1_20141021tiny")
-sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
-sizes$Normalized.size <- sizes$npixels / res$size
-sizes
+img_dir <- paste(indir,"/cropped/", sep = "")
+overlay_dir <- paste(indir,"/overlay/", sep = "")
+mask_dir <- paste(indir,"/mask/", sep = "")
+sizes <- wrapper_predictdir_9feat(img_dir = img_dir,
+                                  overlaydir = overlay_dir,
+                                  maskdir = mask_dir,
+                                  m1 = m1)
 
-# Calculate hull area from file
-maskdir <- "mask/"
-sizes$Hull.area <- NULL
+# Read sticker sizes
+Stickers <- read.table(paste(outdir,"/sticker.sizes.txt", sep = ""), sep = "\t", header = TRUE)
+head(Stickers)
+
+# Reformat sizes
+row.names(sizes) <- NULL
+sizes$name <- basename(as.character(sizes$file))
+sizes <- cbind(sizes, do.call(rbind,strsplit(sizes$name,split = "[.]")))
+colnames(sizes) <- c("file","npixels","filename","Strain","Plate", "Col", "Row", "format")
+sizes$format <- NULL
+sizes$PlateID <- paste(sizes$Strain,sizes$Plate,sep = ".")
+sizes$file <- NULL
+head(sizes)
+
+# Normalize
+sizes$Sticker.size <- Stickers$Size[ match(x = sizes$PlateID,table = as.character(Stickers$Name))]
+sizes$Normalized.size <- sizes$npixels / sizes$Sticker.size
+head(sizes)
+
+
+# Calculate hull area from maskfile
+sizes$Hull.area <- NA
 for(i in 1:nrow(sizes)){
-  file <- as.character(sizes$file[i])
-  file <- paste(maskdir,"/",basename(file),sep = "")
+  file <- as.character(sizes$filename[i])
+  file <- paste(mask_dir,"/",basename(file),sep = "")
   cat(file,"\n")
   mask <- readImage(file)
   sizes$Hull.area[i] <- hull_area_from_masks(mask)
 }
-sizes$Normalized.hull.area <- sizes$Hull.area / res$size
-row.names(sizes) <- NULL
-sizes
+sizes$Normalized.hull.area <- sizes$Hull.area / sizes$Sticker.size
+head(sizes)
 
-# Some manual plot
-sizes$Type <- c(rep("dead",3),rep("+Bacteria",6),rep("No Bacteria",3))
-sizes
+filename <- paste(indir,"/sizes.txt", sep = "")
+write.table(sizes, filename, sep = "\t", quote = FALSE, col.names = TRUE, row.names = FALSE)
 
-p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Type, y = Normalized.hull.area, col = Type)) +
-  ggplot2::geom_point() +
-  AMOR::theme_blackbox
-p1
-
-p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Type, y = Normalized.size, col = Type)) +
-  ggplot2::geom_point() +
-  AMOR::theme_blackbox
-p1
-
-p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Normalized.hull.area, y = Normalized.size, col = Type)) +
-  ggplot2::geom_point() +
-  AMOR::theme_blackbox
-p1
+# # Some manual plot
+# sizes$Type <- c(rep("dead",3),rep("+Bacteria",6),rep("No Bacteria",3))
+# sizes
+# 
+# p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Type, y = Normalized.hull.area, col = Type)) +
+#   ggplot2::geom_point() +
+#   AMOR::theme_blackbox
+# p1
+# 
+# p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Type, y = Normalized.size, col = Type)) +
+#   ggplot2::geom_point() +
+#   AMOR::theme_blackbox
+# p1
+# 
+# p1 <- ggplot2::ggplot(sizes,ggplot2::aes(x = Normalized.hull.area, y = Normalized.size, col = Type)) +
+#   ggplot2::geom_point() +
+#   AMOR::theme_blackbox
+# p1
 
 
 # # To generate combinations
 # rows <- c(10,20,30)
 # cols <- c(40,80,120,160)
 # expand.grid(rows = rows, cols = cols)
+
+date()

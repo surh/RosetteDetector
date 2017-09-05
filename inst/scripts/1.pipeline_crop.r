@@ -17,6 +17,7 @@
 
 library(RosetteDetector)
 
+date()
 ######## General parameters #################
 indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/"
 #indir <- base::system.file("images", package = "RosetteDetector", mustWork = TRUE)
@@ -44,6 +45,7 @@ dir.create(paste(outdir,"/cropped/",sep = ""))
 
 # Read file list
 files <- list.files(indir)
+Sticker.sizes <- NULL
 # Process files
 for(file in files){
   #file <- files[1]
@@ -81,6 +83,8 @@ for(file in files){
     dev.off()
   }
   
+  Sticker.sizes <- rbind(Sticker.sizes, data.frame(Name = name, Size = dot$size))
+  
   ## Find fourth 'sticker'
   dot <- find_fourth_point(x = dot)
   if(plot_all_steps){
@@ -105,3 +109,8 @@ for(file in files){
                      adjust.cell = 10)
   
 }
+
+filename <- paste(outdir,"/sticker.sizes.txt", sep = "")
+write.table(Sticker.sizes, filename, row.names = FALSE, sep = "\t", col.names = TRUE, quote = FALSE)
+
+date()
