@@ -17,87 +17,113 @@
 
 library(RosetteDetector)
 
+######## General parameters #################
 # indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/"
-# 
-# 
-# files <- list.files(indir)
-# for(file in files){
-#   file <- files[1]
-#   
-#   pic_file <- paste(indir,"/",file, sep = "")
-#   cat(pic_file,"\n")
-# 
-# }
+indir <- base::system.file("images", package = "RosetteDetector", mustWork = TRUE)
+outdir <- "~/rhizogenomics/experiments/2017/today5/out/"
+
+toplef.min <- c(0.0,0.20,0.25)
+topleft.max <- c(0.25,0.3,0.4)
+topright.min <- c(0.0,-0.7,0.0)
+topright.max <- c(0.15,-0.2,0.2)
+bottomleft.min <- c(0.1,-0.2,-0.2)
+bottomleft.max <- c(0.4,0.1,0.1)
+
+transform <- "logplus1"
+adjust <- 30
+plot_all_steps <- TRUE
+
+################ Setup run ########
+dir.create(outdir)
+if(plot_all_steps){
+  dir.create(paste(outdir,"/1.stickers/",sep = ""))
+  dir.create(paste(outdir,"/2.four_points/",sep = ""))
+  dir.create(paste(outdir,"/3.adjusted/",sep = ""))
+}
 
 
-img_file1 <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
-img_file2 <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
-img1 <- readImage(img_file1)
-img2 <- readImage(img_file2)
 
-display(img1)
-display(sqrt(img1))
-display(log(img1) + 1)
+# Read file list
+files <- list.files(indir)
+# Process files
+for(file in files){
+  #file <- files[1]
+  
+  name <- sub(pattern = "[.](jpeg|jpg)", replacement = "",
+              x = file, ignore.case = TRUE)
+  pic_file <- paste(indir,"/",file, sep = "")
+  cat(pic_file,"\n")
+  
+  
+  img <- readImage(pic_file)
+  
+  ## Find the three stickers
+  if(transform == "logplus1"){
+    dot <- find_three_stickers(img = log(img) + 1,
+                               toplef.min = toplef.min,
+                               topleft.max = topleft.max,
+                               topright.min = topright.min,
+                               topright.max = topright.max,
+                               bottomleft.min = bottomleft.min,
+                               bottomleft.max = bottomleft.max)
+  }else{
+    dot <- find_three_stickers(img = img,
+                               toplef.min = toplef.min,
+                               topleft.max = topleft.max,
+                               topright.min = topright.min,
+                               topright.max = topright.max,
+                               bottomleft.min = bottomleft.min,
+                               bottomleft.max = bottomleft.max)
+  }
+  if(plot_all_steps){
+    filename <- paste(outdir,"/1.stickers/",name,".stickers.png", sep = "")
+    png(filename = filename, width = dim(img)[1], height = dim(img)[2])
+    plot_platecrop(img,dot)
+    dev.off()
+  }
+  
+  ## Find fourth 'sticker'
+  dot <- find_fourth_point(x = dot)
+  if(plot_all_steps){
+    filename <- paste(outdir,"/2.four_points/",name,".four_points.png", sep = "")
+    png(filename = filename, width = dim(img)[1], height = dim(img)[2])
+    plot_platecrop(img,dot)
+    dev.off()
+  }
+  
+  # Adjust coordinates of rectangle
+  dot.adj <- adjust_rectangle(points = dot, v = adjust, h = 0)
+  if(plot_all_steps){
+    filename <- paste(outdir,"/3.adjusted/",name,".adjusted.png", sep = "")
+    png(filename = filename, width = dim(img)[1], height = dim(img)[2])
+    plot_platecrop(img,dot.adj)
+    dev.off()
+  }
+}
 
-display(img1[,,3])
-display(img2[,,3])
-
-display(sqrt(img1[,,2]))
-display(sqrt(img2[,,2]))
-
-display(log(img1[,,3]) + 1)
-display(log(img2[,,3]) + 1)
-
-display(log(img1[,,1]+ 1))
-display(log(img2[,,1]+ 1))
-
-# This finds top left
-res <- find_sticker(img = log(img1) + 1, mins = c(0.0,0.20,0.25), maxs = c(0.25,0.3,0.4),
-                    return.img = TRUE, show.steps = TRUE)
-display(res$img)
-
-res <- find_sticker(img = log(img2) + 1, mins = c(0.0,0.20,0.25), maxs = c(0.25,0.3,0.4),
-                    return.img = TRUE, show.steps = TRUE)
-
-display(res$img)
-
-
-# This finds top right
-res <- find_sticker(img = log(img1) + 1, mins = c(0.0,-0.7,0.0), maxs = c(0.15,-0.2,0.2), return.img = TRUE)
-res
-display(res$img)
-
-res <- find_sticker(img = log(img2) + 1, mins = c(0.0,-0.7,0.0), maxs = c(0.15,-0.2,0.2), return.img = TRUE)
-res
-display(res$img)
-
-
-# This finds bottom left
-res <- find_sticker(img = log(img1) + 1, mins = c(0.1,-0.2,-0.2), maxs = c(0.4,0.1,0.1), return.img = TRUE)
-display(res$img)
-
-res <- find_sticker(img = log(img2) + 1, mins = c(0.1,-0.2,-0.2), maxs = c(0.4,0.1,0.1), return.img = TRUE)
-display(res$img)
 
 
 # Find rectangle
-res1 <- find_three_stickers(img = log(img1) + 1, toplef.min = c(0.0,0.20,0.20), topleft.max = c(0.25,0.3,0.4),
+res1 <- find_three_stickers(img = log(img1) + 1, toplef.min = c(0.0,0.20,0.25), topleft.max = c(0.25,0.3,0.4),
                             topright.min = c(0.0,-0.7,0.0), topright.max = c(0.15,-0.2,0.2),
                             bottomleft.min = c(0.1,-0.2,-0.2), bottomleft.max = c(0.4,0.1,0.1))
 res1 <- find_fourth_point(x = res1)
 plot_platecrop(img1,res1)
 
-res2 <- find_three_stickers(img = log(img2) + 1, toplef.min = c(0.0,0.20,0.20), topleft.max = c(0.25,0.3,0.4),
+res2 <- find_three_stickers(img = log(img2) + 1, toplef.min = c(0.0,0.20,0.25), topleft.max = c(0.25,0.3,0.4),
                             topright.min = c(0.0,-0.7,0.0), topright.max = c(0.15,-0.2,0.2),
                             bottomleft.min = c(0.1,-0.2,-0.2), bottomleft.max = c(0.4,0.1,0.1))
-plot_platecrop(img2, res2)
 res2 <- find_fourth_point(x = res2)
 plot_platecrop(img2,res2)
 
 
 # Adjust coordinates of rectangle
-res.adj <- adjust_rectangle(points = res, v = 30, h = 0)
-plot_platecrop(img,res.adj)
+res1.adj <- adjust_rectangle(points = res1, v = 30, h = 0)
+plot_platecrop(img1,res1.adj)
+
+res2.adj <- adjust_rectangle(points = res2, v = 30, h = 0)
+plot_platecrop(img2,res2.adj)
+
 
 # Crop file
 dir.create("output")
