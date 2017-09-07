@@ -19,9 +19,12 @@ library(RosetteDetector)
 
 date()
 ######## General parameters #################
-indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/"
+#indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/"
 #indir <- base::system.file("images", package = "RosetteDetector", mustWork = TRUE)
-outdir <- "~/rhizogenomics/experiments/2017/today5/out/"
+#outdir <- "~/rhizogenomics/experiments/2017/today5/out/"
+
+indir <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/green_renamed_cropped/"
+outdir <- "~/rhizogenomics/experiments/2017/today/out/"
 
 toplef.min <- c(0.0,0.20,0.25)
 topleft.max <- c(0.25,0.3,0.4)
