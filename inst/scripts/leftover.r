@@ -1,6 +1,9 @@
+library(RosetteDetector)
+
 img_file1 <- system.file("images","example1.jpeg", package = "RosetteDetector", mustWork = TRUE)
 #img_file2 <- base::system.file("images","example2.jpeg", package = "RosetteDetector", mustWork = TRUE)
-img_file2 <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/123.3.JPG"
+# img_file2 <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/biomass_renamed_cropped/123.3.JPG"
+img_file2 <- "~/rhizogenomics/data/rosette_phenotyping/BinaryAssociations/green_renamed_cropped/33.1.JPG"
 img1 <- readImage(img_file1)
 img2 <- readImage(img_file2)
 
@@ -14,8 +17,8 @@ display(img2[,,3])
 display(sqrt(img1[,,2]))
 display(sqrt(img2[,,2]))
 
-display(log(img1[,,1]) + 1)
-display(log(img2[,,1]) + 1)
+display(log(img1[,,2]) + 1)
+display(log(img2[,,2]) + 1)
 
 display(log(img1[,,1] + 1))
 display(log(img2[,,1] + 1))
