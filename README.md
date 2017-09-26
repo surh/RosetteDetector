@@ -24,7 +24,7 @@ Once you have cloned the repository, there are various ways to install the packa
 recomended is to launch R from the same terminal location and type:
 
 ```r
-devtools::install(RosetteDetector/)
+devtools::install("RosetteDetector/")
 ```
 
 For the development version, one must switch to the `dev` branch. After cloning the repository, go into
@@ -40,6 +40,23 @@ Just launch R from the repository directory and type:
 ```r
 devtools::install("./")
 ```
+
+## Dependencies
+
+The full list of dependencies is specified in the "Imports" and "Suggests" fields of the [DESCRIPTION](DESCRIPTION) file.
+
+R should automatically pull and install all the dependencies that are on CRAN. You can also manually install them with
+the base R function `install.packages`.
+
+[**EBImage**](https://www.bioconductor.org/packages/release/bioc/html/EBImage.html) must be installed via bioconductor and
+you can find installation instructions that package's website. Typically you would type the following in the R prompt:
+
+```r
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("EBImage")
+```
+
 # Usage
 
 For a basic introduction to the usage. Please look at the [basic pipeline vignette](inst/doc/pipeline.html).
