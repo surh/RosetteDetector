@@ -20,9 +20,9 @@ library(RosetteDetector)
 date()
 
 ######## General parameters #################
-opts <- NULL
-opts[1] <- "~/rhizogenomics/experiments/2017/2017-09-04.binary_plate_sizes/out/"
-opts[2] <- "greenness.txt"
+# opts <- NULL
+# opts[1] <- "~/rhizogenomics/experiments/2017/2017-09-04.binary_plate_sizes/out/"
+# opts[2] <- "greenness.txt"
 
 indir <- opts[1]
 outfile <- opts[2]
