@@ -85,6 +85,14 @@ adjust_rectangle <- function(points,v = 0,h = 0) {
 #' Increase segment
 #' 
 #' internal
+#' 
+#' @param x1,y1,x2,y2 Coordinates of points defining a segment
+#' to be increased
+#' @param increase How much to extend the segment
+#' 
+#' @author Sur Herrera Paredes
+#' 
+#' @return list with coordinates of new extended segment
 increase_segment <- function(x1,y1,x2,y2,increase){
   delta.x <- (x2 - x1) / sqrt((x2-x1)^2 + (y2-y1)^2)
   delta.y <- (y2 - y1) / sqrt((x2-x1)^2 + (y2-y1)^2)

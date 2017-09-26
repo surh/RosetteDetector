@@ -27,7 +27,7 @@
 #' "m.cx" and "m.cy" for the X- and Y-coordinates respectivelu. The list must also contain
 #' an enty called \emph{size} wich has the size in pixels of the circle to draw
 #' 
-#' @returns The raster image of \emph{img}
+#' @return The raster image of \emph{img}
 #' 
 #' @author Sur Herrera Paredes
 #' 

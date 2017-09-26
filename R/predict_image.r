@@ -28,7 +28,7 @@
 #' @param outmask Directory name where to save the masks resulting from the pipeline.
 #' @param outoverlay Directory name where to save the overlay images.
 #' 
-#' @returns Size of the found feature
+#' @return Size of the found feature
 #' 
 #' @author Sur Herrera Paredes
 #' 
