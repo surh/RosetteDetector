@@ -5,7 +5,7 @@ Version: 0.0-4
 Depends: EBImage(>= 4.6.0),
 	reshape2(>= 1.4),
 	e1071(>= 1.6-4),
-	methods(>= 3.4.0)
+	methods
 Imports: raster(>= 2.5-8),
   plotrix(>= 3.6-5),
   splancs(>= 2.01-40),
