@@ -1,6 +1,4 @@
-[![DOI](https://zenodo.org/badge/10928/surh/RosetteDetector.svg)](https://zenodo.org/badge/latestdoi/10928/surh/RosetteDetector)
-
-[![Build Status](https://travis-ci.org/surh/RosetteDetector.svg?branch=master)](https://travis-ci.org/surh/RosetteDetector)
+[![DOI](https://zenodo.org/badge/10928/surh/RosetteDetector.svg)](https://zenodo.org/badge/latestdoi/10928/surh/RosetteDetector) [![Build Status](https://travis-ci.org/surh/RosetteDetector.svg?branch=master)](https://travis-ci.org/surh/RosetteDetector)
 
 # RosetteDetector
 
@@ -30,6 +28,10 @@ recomended is to launch R from the same terminal location and type:
 ```r
 devtools::install("RosetteDetector/")
 ```
+
+## Development version
+
+[![Build Status](https://travis-ci.org/surh/RosetteDetector.svg?branch=dev)](https://travis-ci.org/surh/RosetteDetector)
 
 For the development version, one must switch to the `dev` branch. After cloning the repository, go into
 the newly created directory and switch branches by typing:
