@@ -1,3 +1,7 @@
+[![DOI](https://zenodo.org/badge/10928/surh/RosetteDetector.svg)](https://zenodo.org/badge/latestdoi/10928/surh/RosetteDetector)
+
+[![Build Status](https://travis-ci.org/surh/RosetteDetector.svg?branch=master)](https://travis-ci.org/surh/RosetteDetector)
+
 # RosetteDetector
 
 An R package for detecting annd measuring size of Arabidopsis rosettes.
