@@ -10,7 +10,6 @@ r:
   - 3.4.0
   - devel
 warnings_as_errors: true
-
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
@@ -18,4 +17,4 @@ before_install:
 install:
   #- ./travis-tool.sh install_deps
   - ./travis-tool.sh install_bioc_deps
-
+sudo: true
