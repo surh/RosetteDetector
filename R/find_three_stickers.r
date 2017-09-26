@@ -29,14 +29,14 @@
 #' @param topleft.min,topleft.max The minimum and maximum RGB values defining a range on
 #' which a feature at position "topleft" is expected to exist.
 #' @param topright.min,topright.max Similar to above, but for an element at position topright.
-#' @param bottmleft.min,bottomleft.max Similar to above, but for an element at position bottomleft.
-#' @param return.image NOT IMPLEMENTED. Logical, indicating whether to return the masked object(s).
+#' @param bottomleft.min,bottomleft.max Similar to above, but for an element at position bottomleft.
+#' @param return.img NOT IMPLEMENTED. Logical, indicating whether to return the masked object(s).
 #' 
 #' @author Sur Herrera Paredes
 #' 
 #' @export
 find_three_stickers <- function(img,
-                                toplef.min = c(0.1,0.25,0.25),
+                                topleft.min = c(0.1,0.25,0.25),
                                 topleft.max = c(0.25,0.3,0.4),
                                 topright.min = c(0.1,0.0,0.1),
                                 topright.max = c(0.2,0.15,0.3),
@@ -44,7 +44,7 @@ find_three_stickers <- function(img,
                                 bottomleft.max = c(0.4,0.2,0.2),
                                 return.img = FALSE) {
   
-  topleft <- find_sticker(img = img,mins = toplef.min, maxs = topleft.max, return.img = return.img)
+  topleft <- find_sticker(img = img,mins = topleft.min, maxs = topleft.max, return.img = return.img)
   topright <- find_sticker(img = img,mins = topright.min, maxs = topright.max, return.img = return.img)
   bottomleft <- find_sticker(img = img,mins = bottomleft.min, maxs = bottomleft.max, return.img = return.img)
   bottomright <- list(pos = NULL,size = NULL)

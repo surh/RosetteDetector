@@ -21,6 +21,9 @@ in \emph{m1}.}
 
 \item{outoverlay}{Directory name where to save the overlay images.}
 }
+\value{
+Size of the found feature
+}
 \description{
 Takes an image file and a trained SVM model and predicts every pixel
 of the image.

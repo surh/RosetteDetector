@@ -6,6 +6,18 @@
 \usage{
 increase_segment(x1, y1, x2, y2, increase)
 }
+\arguments{
+\item{x1, y1, x2, y2}{Coordinates of points defining a segment
+to be increased}
+
+\item{increase}{How much to extend the segment}
+}
+\value{
+list with coordinates of new extended segment
+}
 \description{
 internal
+}
+\author{
+Sur Herrera Paredes
 }
