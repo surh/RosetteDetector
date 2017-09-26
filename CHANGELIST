@@ -1,3 +1,5 @@
 # 0.0-5
  1. Corrected and updated installation instructions
  2. Added script to extract greeness from pipeline results
+ 3. Setup travis to check build with R versions above 3.1.3, including devel
+ 4. Recompressed the data to save about 45% of space.
