@@ -20,7 +20,7 @@ library(RosetteDetector)
 date()
 
 ######## General parameters #################
-indir <- "~/rhizogenomics/experiments/2017/today5/out/"
+indir <- "~/rhizogenomics/experiments/2017/today/out/"
 
 outdir <- indir
 
