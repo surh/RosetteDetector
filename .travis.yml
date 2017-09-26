@@ -17,4 +17,6 @@ before_install:
 install:
   #- ./travis-tool.sh install_deps
   - ./travis-tool.sh install_bioc_deps
-sudo: true
+sudo: required
+apt_packages:
+  - libfftw3-dev
