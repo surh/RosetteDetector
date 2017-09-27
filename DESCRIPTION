@@ -18,5 +18,6 @@ Description: Rosette Detection with SVM
 License: GPL-3
 RoxygenNote: 6.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
