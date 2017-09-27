@@ -5,4 +5,4 @@
  4. Recompressed the data to save about 45% of space.
  5. Moved away from git lfs which has bandwith limits. In the future I might
  the big svm model.
- 6. Tracking coverage with coveralls
+ 6. Tracking coverage with codecov
