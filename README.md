@@ -66,6 +66,18 @@ biocLite("EBImage")
 
 For a basic introduction to the usage. Please look at the [basic pipeline vignette](inst/doc/pipeline.html).
 
+If you have already installed the package you can use the following command in the R prompt:
+
+```r
+vignette('pipeline', package = 'RosetteDetector')
+```
+
+You can also find where the vignette was installed in your system by typing:
+
+```r
+system.file("doc",package = "RosetteDetector", mustWork = TRUE)
+```
+
 # Referencing
 
 For referencing please use the version doi.
