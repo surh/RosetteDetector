@@ -16,7 +16,7 @@ Author: Sur Herrera Paredes
 Maintainer: Sur Herrera Paredes <sur00mx@gmail.com>
 Description: Package that uses support vector machines
   to find plat rosettes in images.
-License: GPL (>= 3)
+License: GPL (>= 3) | file LICENSE
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
