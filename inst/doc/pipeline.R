@@ -16,7 +16,7 @@ display(img)
 ## ----findstickers--------------------------------------------------------
 # Find rectangle
 res <- find_three_stickers(img = img,
-                    toplef.min = c(0.1, 0.25, 0.25), topleft.max = c(0.25, 0.3, 0.4),
+                    topleft.min = c(0.1, 0.25, 0.25), topleft.max = c(0.25, 0.3, 0.4),
                     topright.min = c(0.1, 0, 0.1), topright.max = c(0.2, 0.15, 0.3),
                     bottomleft.min = c(0.2, 0.1, 0.1), bottomleft.max = c(0.4, 0.2, 0.2))
 

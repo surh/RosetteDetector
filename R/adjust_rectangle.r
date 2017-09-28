@@ -20,7 +20,7 @@
 #' Increases the distance between points by some factor.
 #' 
 #' @param points A list containing topleft, topright, bottomleft, and bottomright entries.
-#' Each entry must be a names numeric vector of length two with elements "m.cy" and "m.cy",
+#' Each entry must be a named numeric vector of length two with elements "m.cy" and "m.cy",
 #' which correspond to the x and y coordinates of each point
 #' @param v,h Adjustment distance in vertical and horizontal direction respectively. Must
 #' be an integer in pixels. 0 does not change anything in that direction.
@@ -85,6 +85,14 @@ adjust_rectangle <- function(points,v = 0,h = 0) {
 #' Increase segment
 #' 
 #' internal
+#' 
+#' @param x1,y1,x2,y2 Coordinates of points defining a segment
+#' to be increased
+#' @param increase How much to extend the segment
+#' 
+#' @author Sur Herrera Paredes
+#' 
+#' @return list with coordinates of new extended segment
 increase_segment <- function(x1,y1,x2,y2,increase){
   delta.x <- (x2 - x1) / sqrt((x2-x1)^2 + (y2-y1)^2)
   delta.y <- (y2 - y1) / sqrt((x2-x1)^2 + (y2-y1)^2)

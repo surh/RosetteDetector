@@ -4,7 +4,7 @@
 \alias{find_three_stickers}
 \title{Find the three stickers in standard positions}
 \usage{
-find_three_stickers(img, toplef.min = c(0.1, 0.25, 0.25),
+find_three_stickers(img, topleft.min = c(0.1, 0.25, 0.25),
   topleft.max = c(0.25, 0.3, 0.4), topright.min = c(0.1, 0, 0.1),
   topright.max = c(0.2, 0.15, 0.3), bottomleft.min = c(0.2, 0.1, 0.1),
   bottomleft.max = c(0.4, 0.2, 0.2), return.img = FALSE)
@@ -12,14 +12,14 @@ find_three_stickers(img, toplef.min = c(0.1, 0.25, 0.25),
 \arguments{
 \item{img}{Image object. From EBImage.}
 
-\item{topright.min, topright.max}{Similar to above, but for an element at position topright.}
-
 \item{topleft.min, topleft.max}{The minimum and maximum RGB values defining a range on
 which a feature at position "topleft" is expected to exist.}
 
-\item{bottmleft.min, bottomleft.max}{Similar to above, but for an element at position bottomleft.}
+\item{topright.min, topright.max}{Similar to above, but for an element at position topright.}
 
-\item{return.image}{NOT IMPLEMENTED. Logical, indicating whether to return the masked object(s).}
+\item{bottomleft.min, bottomleft.max}{Similar to above, but for an element at position bottomleft.}
+
+\item{return.img}{NOT IMPLEMENTED. Logical, indicating whether to return the masked object(s).}
 }
 \description{
 Wrapper for \link{find_sticker} it finds three similar objects. It assumes that there are
