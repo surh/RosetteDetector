@@ -14,8 +14,9 @@ Imports: raster(>= 2.5-8),
 Date: 2017-09-27
 Author: Sur Herrera Paredes
 Maintainer: Sur Herrera Paredes <sur00mx@gmail.com>
-Description: Rosette Detection with SVM
-License: GPL-3
+Description: Package that uses support vector machines
+  to find plat rosettes in images.
+License: GPL (>= 3)
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
