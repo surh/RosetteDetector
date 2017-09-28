@@ -8,7 +8,7 @@ adjust_rectangle(points, v = 0, h = 0)
 }
 \arguments{
 \item{points}{A list containing topleft, topright, bottomleft, and bottomright entries.
-Each entry must be a names numeric vector of length two with elements "m.cy" and "m.cy",
+Each entry must be a named numeric vector of length two with elements "m.cy" and "m.cy",
 which correspond to the x and y coordinates of each point}
 
 \item{v, h}{Adjustment distance in vertical and horizontal direction respectively. Must
