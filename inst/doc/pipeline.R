@@ -43,7 +43,11 @@ display(crop$Wells[[12]])
 data("m1_20141021tiny")
 
 ## ----predict-------------------------------------------------------------
-sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
+sizes <- wrapper_predictdir_9feat(img_dir = "output/",
+                                  overlaydir = "overlay",
+                                  maskdir = "mask",
+                                  m1 = m1,
+                                  size_threshold = 0)
 
 ## ----format--------------------------------------------------------------
 row.names(sizes) <- NULL
