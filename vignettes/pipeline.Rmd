@@ -129,8 +129,8 @@ sizes <- wrapper_predictdir_9feat(img_dir = "output/",
                                   size_threshold = 0)
 ```
 
-The `size_threshold = 0` option tells the underlying prediction function keep all the plant-like pixels.
-We can set these paramter to a higher number which can be useful if some noise is being confused with a
+The `size_threshold = 0` option tells the underlying prediction function to keep all the plant-like pixels.
+We can set this paramter to a higher number which can be useful if some noise is being confused with a
 plant.
 
 The output of the previous command is a table with the filenames read, and the size of the plant in
