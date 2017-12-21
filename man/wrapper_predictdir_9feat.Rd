@@ -4,7 +4,7 @@
 \alias{wrapper_predictdir_9feat}
 \title{Predict from 9 features}
 \usage{
-wrapper_predictdir_9feat(img_dir, overlaydir, maskdir, m1)
+wrapper_predictdir_9feat(img_dir, overlaydir, maskdir, m1, size_threshold = 0)
 }
 \arguments{
 \item{img_dir}{Directory name where images files are}
@@ -14,6 +14,10 @@ wrapper_predictdir_9feat(img_dir, overlaydir, maskdir, m1)
 \item{maskdir}{directory name where the mask files are saved}
 
 \item{m1}{trained SVM model from e1071 used for prediction}
+
+\item{size_threshold}{the minimum size of of a contiguous set of
+selected threshold for that group to be included. Size is in number
+of pixels.}
 }
 \value{
 Data.frame showing file names processed and object size in pixels

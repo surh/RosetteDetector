@@ -122,11 +122,19 @@ directory (which contains the output from cropping the image), and the previousl
 Finally, we also pass some directory names that will be used to store more output.
 
 ```{r predict}
-sizes <- wrapper_predictdir_9feat(img_dir = "output/",overlaydir = "overlay",maskdir = "mask",m1 = m1)
+sizes <- wrapper_predictdir_9feat(img_dir = "output/",
+                                  overlaydir = "overlay",
+                                  maskdir = "mask",
+                                  m1 = m1,
+                                  size_threshold = 0)
 ```
 
+The `size_threshold = 0` option tells the underlying prediction function keep all the plant-like pixels.
+We can set these paramter to a higher number which can be useful if some noise is being confused with a
+plant.
+
 The output of the previous command is a table with the filenames read, and the size of the plant in
-the corresponding file. The size is expressed in pixes, but we can use the sticker size to normalize
+the corresponding file. The size is expressed in pixels, but we can use the sticker size to normalize
 the size and use that to compare across different images. We also do some formatting and print the
 table:
 
