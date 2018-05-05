@@ -4,9 +4,9 @@ Title: RosetteDetector
 Version: 0.1-2
 Depends: R (>= 3.1.3),
   EBImage(>= 4.6.0),
-	reshape2(>= 1.4),
-	e1071(>= 1.6-4),
-	methods
+  reshape2(>= 1.4),
+  e1071(>= 1.6-4),
+  methods
 Imports: raster(>= 2.5-8),
   plotrix(>= 3.6-5),
   splancs(>= 2.01-40),
