@@ -12,7 +12,7 @@
 
 <meta name="author" content="Sur Herrera Paredes" />
 
-<meta name="date" content="2017-09-27" />
+<meta name="date" content="2017-12-21" />
 
 <title>Basic imaging pipeline</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Basic imaging pipeline</h1>
 <h4 class="author"><em>Sur Herrera Paredes</em></h4>
-<h4 class="date"><em>2017-09-27</em></h4>
+<h4 class="date"><em>2017-12-21</em></h4>
 
 
 
@@ -148,8 +148,13 @@ crop &lt;-<span class="st"> </span><span class="kw">crop_plate</span>(img,res.ad
 <p>Now we have split the original image into wells, we can find the plant on each. We can use a Support Vector Machine (SVM) classified to this job. An SVM requires a training set to learn how to distinguish a plant. You can use one of the pre-trained models in the package. Just load the mode with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;m1_20141021tiny&quot;</span>)</code></pre></div>
 <p>Then we can use the function <code>wrapper_predictdir_9feat</code>, which takes a directory of images, and finds the plant on each of them processively. Therefore, we pass the function the created output directory (which contains the output from cropping the image), and the previously loaded SVM model Finally, we also pass some directory names that will be used to store more output.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sizes &lt;-<span class="st"> </span><span class="kw">wrapper_predictdir_9feat</span>(<span class="dt">img_dir =</span> <span class="st">&quot;output/&quot;</span>,<span class="dt">overlaydir =</span> <span class="st">&quot;overlay&quot;</span>,<span class="dt">maskdir =</span> <span class="st">&quot;mask&quot;</span>,<span class="dt">m1 =</span> m1)</code></pre></div>
-<p>The output of the previous command is a table with the filenames read, and the size of the plant in the corresponding file. The size is expressed in pixes, but we can use the sticker size to normalize the size and use that to compare across different images. We also do some formatting and print the table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sizes &lt;-<span class="st"> </span><span class="kw">wrapper_predictdir_9feat</span>(<span class="dt">img_dir =</span> <span class="st">&quot;output/&quot;</span>,
+                                  <span class="dt">overlaydir =</span> <span class="st">&quot;overlay&quot;</span>,
+                                  <span class="dt">maskdir =</span> <span class="st">&quot;mask&quot;</span>,
+                                  <span class="dt">m1 =</span> m1,
+                                  <span class="dt">size_threshold =</span> <span class="dv">0</span>)</code></pre></div>
+<p>The <code>size_threshold = 0</code> option tells the underlying prediction function to keep all the plant-like pixels. We can set this paramter to a higher number which can be useful if some noise is being confused with a plant.</p>
+<p>The output of the previous command is a table with the filenames read, and the size of the plant in the corresponding file. The size is expressed in pixels, but we can use the sticker size to normalize the size and use that to compare across different images. We also do some formatting and print the table:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(sizes) &lt;-<span class="st"> </span><span class="ot">NULL</span>
 sizes$Normalized.size &lt;-<span class="st"> </span>sizes$npixels /<span class="st"> </span>res.adj$size
 sizes</code></pre></div>
