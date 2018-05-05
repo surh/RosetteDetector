@@ -62,8 +62,6 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("EBImage")
 ```
 
-# [Documentation](https://surh.github.io/RosetteDetector/index.html)
-
 # Usage
 
 For a basic introduction to the usage. Please look at the [basic pipeline vignette](inst/doc/pipeline.html).
