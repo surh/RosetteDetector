@@ -12,10 +12,14 @@ Imports: raster(>= 2.5-8),
   splancs(>= 2.01-40),
   ggplot2(>= 2.2.1)
 Date: 2017-09-27
-Authors@R: c(person("Sur", "Herrera Paredes", role = c("aut", "cre"), email = "surh@stanford.edu"))
+Authors@R: c(person("Sur", "Herrera Paredes",
+                    role = c("aut", "cre"),
+                    email = "surh@stanford.edu",
+                    comment = c(ORCID = "0000-0001-9246-8337")))
 Description: Package that uses support vector machines
-  to find plat rosettes in images.
+  to find plant rosettes in images.
 URL: https://surh.github.io/RosetteDetector/
+BugReports: http://github.com/surh/RosetteDetector/issues
 License: GPL (>= 3) | file LICENSE
 RoxygenNote: 6.0.1
 Suggests: knitr,

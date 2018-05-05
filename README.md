@@ -9,43 +9,26 @@ Visit the [package's website](https://surh.github.io/RosetteDetector/).
 
 # Installation
 
-If you have not done it before, you will need to [install git lfs](https://help.github.com/articles/installing-git-large-file-storage/).
-
-It is also recommended that you install the R package devtools. Just launch R and type
+It is also recommended that you install the R package devtools. Just launch R and type:
 
 ```r
 install.packages("devtools")
 ```
 
-Once you have git lfs installed, you can clone this repository.
-
-```sh
-git clone https://www.github.com/surh/RosetteDetector.git
-```
-
-Once you have cloned the repository, there are various ways to install the package, but the simplest and
-recomended is to launch R from the same terminal location and type:
+Once you have devtools installed, you can install with:
 
 ```r
-devtools::install("RosetteDetector/")
+devtools::install_github("surh/RosetteDetector/")
 ```
 
 ## Development version
 
 [![Build Status](https://travis-ci.org/surh/RosetteDetector.svg?branch=dev)](https://travis-ci.org/surh/RosetteDetector) [![codecov](https://codecov.io/gh/surh/RosetteDetector/branch/dev/graph/badge.svg)](https://codecov.io/gh/surh/RosetteDetector)
 
-For the development version, one must switch to the `dev` branch. After cloning the repository, go into
-the newly created directory and switch branches by typing:
-
-```sh
-cd RosetteDetector
-git checkout dev
-```
-Once this is done, you can use devtools to install the version in the development branch.
-Just launch R from the repository directory and type:
+For the development version, one must switch to the `dev` branch. 
 
 ```r
-devtools::install("./")
+devtools::install_github("surh/RosetteDetector/", ref='dev')
 ```
 
 ## Dependencies
