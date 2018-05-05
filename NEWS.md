@@ -7,6 +7,10 @@
 
 * Adding ORCID on author info
 
+* Moving to r-travis.
+
+* Adding first unit tests with testhat
+
 # 0.1-2
 
 * pkgdown site
