@@ -1,6 +1,8 @@
+# 0.1-2
+ 1. pkgdown site
+
 # 0.1-1
  1. Added support for `size_threshold` parameter in wrapper_predicdir_9feat
- 2. pkgdown site
 
 # 0.1-0
  1. Corrected and updated installation instructions
