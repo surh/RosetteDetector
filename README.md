@@ -71,7 +71,7 @@ For referencing please use the version doi.
 
 # Copyright & license
 
-    (C) Copyright 2017 Sur Herrera Paredes
+    (C) Copyright 2017-2018 Sur Herrera Paredes
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

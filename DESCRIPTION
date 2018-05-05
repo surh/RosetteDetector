@@ -11,7 +11,7 @@ Imports: raster(>= 2.5-8),
   plotrix(>= 3.6-5),
   splancs(>= 2.01-40),
   ggplot2(>= 2.2.1)
-Date: 2017-09-27
+Date: 2018-05-04
 Authors@R: c(person("Sur", "Herrera Paredes",
                     role = c("aut", "cre"),
                     email = "surh@stanford.edu",
