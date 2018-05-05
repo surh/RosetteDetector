@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RosetteDetector</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
       </span>
     </div>
 
@@ -110,13 +110,13 @@ img &lt;-<span class="st"> </span><span class="kw">readImage</span>(img_file)</c
 <p>Our strategy to find the plate is to use the three round colored stickers. Each one has a different color and was located in a known position, with the blue sticker in the top left position, the magenta sticker in the topright position, and the red sticker in the bottom right position.</p>
 <p>We can find the position of those three stickers with the function <code>find_three_stickers</code>. This function takes a range of RGB values (specified as mininmum and maximum) for each position. For this image we can use the values below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find rectangle</span>
-res &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/find_three_stickers">find_three_stickers</a></span>(<span class="dt">img =</span> img,
+res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/find_three_stickers.html">find_three_stickers</a></span>(<span class="dt">img =</span> img,
                     <span class="dt">topleft.min =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.25</span>), <span class="dt">topleft.max =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>),
                     <span class="dt">topright.min =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="dv">0</span>, <span class="fl">0.1</span>), <span class="dt">topright.max =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.3</span>),
                     <span class="dt">bottomleft.min =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="dt">bottomleft.max =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>))</code></pre></div>
 <p>The result of the previous command gives us the coordinates of each sticker, which corresponds to three of the vertices of the 12-well plate. We can use those 3 known vertices to find the fourth by using the function <code>find_fourth_sticker</code>. We can the use the function <code>plot_platecrop</code> to see where the three original stickers, and the final fourth position (labelled as a yellow circle) were identified.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/find_fourth_point">find_fourth_point</a></span>(<span class="dt">x =</span> res)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/plot_platecrop">plot_platecrop</a></span>(img,res)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/find_fourth_point.html">find_fourth_point</a></span>(<span class="dt">x =</span> res)
+<span class="kw"><a href="../reference/plot_platecrop.html">plot_platecrop</a></span>(img,res)</code></pre></div>
 <p><img src="pipeline_files/figure-html/four_cornes-1.png" width="521" style="display: block; margin: auto;"></p>
 <pre><code>## class       : RasterBrick 
 ## dimensions  : 648, 1042, 675216, 3  (nrow, ncol, ncell, nlayers)
@@ -129,8 +129,8 @@ res &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocument
 ## max values  :     255,     255,     255</code></pre>
 <p>While the stickers are correctly identified, it is important to note that the stickers were not in exact corners of the plate. As such, the space defined by the four points does not encapsulate the whole region of the 12-well plate that interests us. We can use the <code>adjust_rectangle</code> function to increase the distance between the four points. The following command add 30 pixels (on both directions) on each of the short sides of the <em>rectangle</em> defined by the four points (note that technically it is a trapezoid, since we did not confirm that the triangle from the original three points was a right triangle). After that, we plot the newly adjusted points:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Adjust coordinates of rectangle</span>
-res.adj &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/adjust_rectangle">adjust_rectangle</a></span>(<span class="dt">points =</span> res, <span class="dt">v =</span> <span class="dv">30</span>, <span class="dt">h =</span> <span class="dv">0</span>)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/plot_platecrop">plot_platecrop</a></span>(img,res.adj)</code></pre></div>
+res.adj &lt;-<span class="st"> </span><span class="kw"><a href="../reference/adjust_rectangle.html">adjust_rectangle</a></span>(<span class="dt">points =</span> res, <span class="dt">v =</span> <span class="dv">30</span>, <span class="dt">h =</span> <span class="dv">0</span>)
+<span class="kw"><a href="../reference/plot_platecrop.html">plot_platecrop</a></span>(img,res.adj)</code></pre></div>
 <p><img src="pipeline_files/figure-html/adjust-1.png" width="521" style="display: block; margin: auto;"></p>
 <pre><code>## class       : RasterBrick 
 ## dimensions  : 648, 1042, 675216, 3  (nrow, ncol, ncell, nlayers)
@@ -148,8 +148,9 @@ res.adj &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocu
 <a href="#crop-plate" class="anchor"></a>Crop plate</h2>
 <p>We can now crop the plate making an image that corresponds to each well. We first create a directory to save the output (one file per well), and then we use the function <code>crop_plate</code> to generate the files. In this case, we also set <code>return.images = TRUE</code> wich will return a list including an image object per well; for big images this can be very memory expensive and so it is not recommended, but it is fine in this example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Crop image</span>
-<span class="kw">dir.create</span>(<span class="st">"output"</span>)
-crop &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/crop_plate">crop_plate</a></span>(img,res.adj,<span class="dt">prefix=</span><span class="st">"output/example1."</span>,
+<span class="kw">dir.create</span>(<span class="st">"output"</span>)</code></pre></div>
+<pre><code>## Warning in dir.create("output"): 'output' ya existe</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crop &lt;-<span class="st"> </span><span class="kw"><a href="../reference/crop_plate.html">crop_plate</a></span>(img,res.adj,<span class="dt">prefix=</span><span class="st">"output/example1."</span>,
                    <span class="dt">cols =</span> <span class="dv">4</span>, <span class="dt">rows =</span> <span class="dv">3</span>,<span class="dt">return.images =</span> <span class="ot">TRUE</span>,
                    <span class="dt">adjust.cell =</span> <span class="dv">10</span>)</code></pre></div>
 <p>We can then look at the individual well images, either by opening the files externally or, in this case, by displaying the objects we created</p>
@@ -162,8 +163,15 @@ crop &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumen
 <p>Now we have split the original image into wells, we can find the plant on each. We can use a Support Vector Machine (SVM) classified to this job. An SVM requires a training set to learn how to distinguish a plant. You can use one of the pre-trained models in the package. Just load the mode with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"m1_20141021tiny"</span>)</code></pre></div>
 <p>Then we can use the function <code>wrapper_predictdir_9feat</code>, which takes a directory of images, and finds the plant on each of them processively. Therefore, we pass the function the created output directory (which contains the output from cropping the image), and the previously loaded SVM model Finally, we also pass some directory names that will be used to store more output.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sizes &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/wrapper_predictdir_9feat">wrapper_predictdir_9feat</a></span>(<span class="dt">img_dir =</span> <span class="st">"output/"</span>,<span class="dt">overlaydir =</span> <span class="st">"overlay"</span>,<span class="dt">maskdir =</span> <span class="st">"mask"</span>,<span class="dt">m1 =</span> m1)</code></pre></div>
-<p>The output of the previous command is a table with the filenames read, and the size of the plant in the corresponding file. The size is expressed in pixes, but we can use the sticker size to normalize the size and use that to compare across different images. We also do some formatting and print the table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sizes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/wrapper_predictdir_9feat.html">wrapper_predictdir_9feat</a></span>(<span class="dt">img_dir =</span> <span class="st">"output/"</span>,
+                                  <span class="dt">overlaydir =</span> <span class="st">"overlay"</span>,
+                                  <span class="dt">maskdir =</span> <span class="st">"mask"</span>,
+                                  <span class="dt">m1 =</span> m1,
+                                  <span class="dt">size_threshold =</span> <span class="dv">0</span>)</code></pre></div>
+<pre><code>## Warning in dir.create(overlaydir): 'overlay' ya existe</code></pre>
+<pre><code>## Warning in dir.create(maskdir): 'mask' ya existe</code></pre>
+<p>The <code>size_threshold = 0</code> option tells the underlying prediction function to keep all the plant-like pixels. We can set this paramter to a higher number which can be useful if some noise is being confused with a plant.</p>
+<p>The output of the previous command is a table with the filenames read, and the size of the plant in the corresponding file. The size is expressed in pixels, but we can use the sticker size to normalize the size and use that to compare across different images. We also do some formatting and print the table:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(sizes) &lt;-<span class="st"> </span><span class="ot">NULL</span>
 sizes$Normalized.size &lt;-<span class="st"> </span>sizes$npixels /<span class="st"> </span>res.adj$size
 sizes</code></pre></div>
@@ -194,7 +202,7 @@ for(i in <span class="dv">1</span>:<span class="kw">nrow</span>(sizes)){
   file &lt;-<span class="st"> </span><span class="kw">paste</span>(maskdir,<span class="st">"/"</span>,<span class="kw">basename</span>(file),<span class="dt">sep =</span> <span class="st">""</span>)
   <span class="kw">cat</span>(file,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
   mask &lt;-<span class="st"> </span><span class="kw">readImage</span>(file)
-  sizes$Hull.area[i] &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/RosetteDetector/topics/hull_area_from_masks">hull_area_from_masks</a></span>(mask)
+  sizes$Hull.area[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hull_area_from_masks.html">hull_area_from_masks</a></span>(mask)
 }</code></pre></div>
 <pre><code>## mask//example1.col1.row1.jpeg 
 ## mask//example1.col1.row2.jpeg 
