@@ -5,6 +5,8 @@ An R package for detecting annd measuring size of Arabidopsis rosettes.
 
 Uses a Support Vector Machine to find the plant.
 
+Visit the [package's website](https://surh.github.io/RosetteDetector/).
+
 # Installation
 
 If you have not done it before, you will need to [install git lfs](https://help.github.com/articles/installing-git-large-file-storage/).
@@ -65,6 +67,18 @@ biocLite("EBImage")
 # Usage
 
 For a basic introduction to the usage. Please look at the [basic pipeline vignette](inst/doc/pipeline.html).
+
+If you have already installed the package you can use the following command in the R prompt:
+
+```r
+vignette('pipeline', package = 'RosetteDetector')
+```
+
+You can also find where the vignette was installed in your system by typing:
+
+```r
+system.file("doc",package = "RosetteDetector", mustWork = TRUE)
+```
 
 # Referencing
 

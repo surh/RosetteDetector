@@ -23,6 +23,9 @@
 #' @param overlaydir directory anem where to save the overlay images
 #' @param maskdir directory name where the mask files are saved
 #' @param m1 trained SVM model from e1071 used for prediction
+#' @param size_threshold the minimum size of of a contiguous set of
+#' selected threshold for that group to be included. Size is in number
+#' of pixels.
 #' 
 #' @author Sur Herrera Paredes
 #' 
@@ -30,7 +33,7 @@
 #' from each file
 #' 
 #' @export
-wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1){
+wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1, size_threshold = 0){
   # Get image files and create output directories
   pictures <- paste(img_dir,dir(img_dir),sep="/")
   dir.create(overlaydir)
@@ -38,7 +41,8 @@ wrapper_predictdir_9feat <- function(img_dir , overlaydir , maskdir, m1){
   
   # Predict
   res <- sapply(pictures,predict_image,
-                m1 = m1, size_threshold = 0, predict_class = "plant", outmask = maskdir, outoverlay = overlaydir)
+                m1 = m1, size_threshold = size_threshold,
+                predict_class = "plant", outmask = maskdir, outoverlay = overlaydir)
   Res <- data.frame(file = names(res), npixels = res)
   
   return(Res)
