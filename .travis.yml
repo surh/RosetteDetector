@@ -21,6 +21,10 @@ install:
 sudo: required
 r_packages:
   - covr
+  - kernsmooth
+  - mgcv
+  - MASS
+  - nnet
 after_success:
   #- Rscript -e 'covr::coveralls()'
   - Rscript -e 'covr::codecov()'
