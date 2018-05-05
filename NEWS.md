@@ -1,3 +1,8 @@
+# 0.1-3
+1. Updating installation instructions (Issue https://github.com/surh/RosetteDetector/issues/5)
+2. Adding bug report info in DESCRIPTION
+3. Adding ORCID on author info
+
 # 0.1-2
  1. pkgdown site
 
