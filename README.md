@@ -65,9 +65,11 @@ typing:
 system.file("doc",package = "RosetteDetector", mustWork = TRUE)
 ```
 
-# Referencing
+For the full documentation, please look at the [package's reference](https://surh.github.io/RosetteDetector/reference/index.html)
 
-For referencing please use the version doi.
+# Citation
+
+If you use this code, please use the version's DOI.
 
 [![DOI](https://zenodo.org/badge/10928/surh/RosetteDetector.svg)](https://zenodo.org/badge/latestdoi/10928/surh/RosetteDetector)
 
