@@ -9,43 +9,26 @@ Visit the [package's website](https://surh.github.io/RosetteDetector/).
 
 # Installation
 
-If you have not done it before, you will need to [install git lfs](https://help.github.com/articles/installing-git-large-file-storage/).
-
-It is also recommended that you install the R package devtools. Just launch R and type
+It is also recommended that you install the R package devtools. Just launch R and type:
 
 ```r
 install.packages("devtools")
 ```
 
-Once you have git lfs installed, you can clone this repository.
-
-```sh
-git clone https://www.github.com/surh/RosetteDetector.git
-```
-
-Once you have cloned the repository, there are various ways to install the package, but the simplest and
-recomended is to launch R from the same terminal location and type:
+Once you have devtools installed, you can install with:
 
 ```r
-devtools::install("RosetteDetector/")
+devtools::install_github("surh/RosetteDetector/")
 ```
 
 ## Development version
 
 [![Build Status](https://travis-ci.org/surh/RosetteDetector.svg?branch=dev)](https://travis-ci.org/surh/RosetteDetector) [![codecov](https://codecov.io/gh/surh/RosetteDetector/branch/dev/graph/badge.svg)](https://codecov.io/gh/surh/RosetteDetector)
 
-For the development version, one must switch to the `dev` branch. After cloning the repository, go into
-the newly created directory and switch branches by typing:
-
-```sh
-cd RosetteDetector
-git checkout dev
-```
-Once this is done, you can use devtools to install the version in the development branch.
-Just launch R from the repository directory and type:
+For the development version, one must switch to the `dev` branch. 
 
 ```r
-devtools::install("./")
+devtools::install_github("surh/RosetteDetector/", ref='dev')
 ```
 
 ## Dependencies
@@ -66,29 +49,33 @@ biocLite("EBImage")
 
 # Usage
 
-For a basic introduction to the usage. Please look at the [basic pipeline vignette](inst/doc/pipeline.html).
+For a basic introduction to the usage. Please look at the [basic pipeline vignette](https://surh.github.io/RosetteDetector/articles/pipeline.html).
 
-If you have already installed the package you can use the following command in the R prompt:
+If you have already installed the package you can use the following
+command in the R prompt:
 
 ```r
 vignette('pipeline', package = 'RosetteDetector')
 ```
 
-You can also find where the vignette was installed in your system by typing:
+You can also find where the vignette was installed in your system by
+typing:
 
 ```r
 system.file("doc",package = "RosetteDetector", mustWork = TRUE)
 ```
 
-# Referencing
+For the full documentation, please look at the [package's reference](https://surh.github.io/RosetteDetector/reference/index.html)
 
-For referencing please use the version doi.
+# Citation
+
+If you use this code, please use the version's DOI.
 
 [![DOI](https://zenodo.org/badge/10928/surh/RosetteDetector.svg)](https://zenodo.org/badge/latestdoi/10928/surh/RosetteDetector)
 
 # Copyright & license
 
-    (C) Copyright 2017 Sur Herrera Paredes
+    (C) Copyright 2017-2018 Sur Herrera Paredes
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

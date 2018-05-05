@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get training set from image — get_trainig_set_from_image • RosetteDetector</title>
+<title>Changelog • RosetteDetector</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,12 +28,7 @@
 
 
 
-<meta property="og:title" content="Get training set from image — get_trainig_set_from_image" />
-
-<meta property="og:description" content="Calculates nine features (intensity, gradient magnitude and gradient orientation,
-from each of the RGB channels), and uses a mask to return the pixels of interest,
-together with a specified number of pixels from the non-selected region of the image" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Changelog" />
 
 
 <!-- mathjax -->
@@ -48,7 +43,7 @@ together with a specified number of pixels from the non-selected region of the i
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,58 +106,20 @@ together with a specified number of pixels from the non-selected region of the i
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get training set from image</h1>
-    <small class="dont-index">Source: <a href='https://github.com/surh/RosetteDetector/blob/master/R/get_training_set_from_image.r'><code>R/get_training_set_from_image.r</code></a></small>
-    <div class="hidden name"><code>get_trainig_set_from_image.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/surh/RosetteDetector/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
-
-    <div class="ref-description">
-    
-    <p>Calculates nine features (intensity, gradient magnitude and gradient orientation,
-from each of the RGB channels), and uses a mask to return the pixels of interest,
-together with a specified number of pixels from the non-selected region of the image</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>get_trainig_set_from_image</span>(<span class='no'>Img</span>, <span class='kw'>n_bgpixels</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>Img</th>
-      <td><p>A list containing *img* and *mask* elements. The former must be an three-dimensional
-matrix with the original image (each RGB channel corresponding to each of the slices defined by the
-third dimension), and the latter must be a two-dimensional matrix, of the exact same size as each of
-the chanels from the *img* element, where non-zero values indicate the pixels of interest.</p></td>
-    </tr>
-    <tr>
-      <th>n_bgpixels</th>
-      <td><p>Number of background pixels (pixels not selected in the mask) to keep.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A data.frame with all the 9 feature values for the selected
-pixels, as well as for the selected number of background pixels. Can
-be used as training set.</p>
-    
 
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    
-Sur Herrera Paredes
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>
