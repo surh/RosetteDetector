@@ -18,7 +18,8 @@ Authors@R: c(person("Sur", "Herrera Paredes",
                     comment = c(ORCID = "0000-0001-9246-8337")))
 Description: Package that uses support vector machines
   to find plant rosettes in images.
-URL: https://surh.github.io/RosetteDetector/
+URL: https://github.com/surh/RosetteDetector,
+     https://surh.github.io/RosetteDetector
 BugReports: http://github.com/surh/RosetteDetector/issues
 License: GPL (>= 3) | file LICENSE
 RoxygenNote: 6.0.1
