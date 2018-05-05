@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RosetteDetector</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.2</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>wrapper_predictdir_9feat</span>(<span class='no'>img_dir</span>, <span class='no'>overlaydir</span>, <span class='no'>maskdir</span>, <span class='no'>m1</span>)</pre>
+    <pre class="usage"><span class='fu'>wrapper_predictdir_9feat</span>(<span class='no'>img_dir</span>, <span class='no'>overlaydir</span>, <span class='no'>maskdir</span>, <span class='no'>m1</span>, <span class='kw'>size_threshold</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,6 +132,12 @@
     <tr>
       <th>m1</th>
       <td><p>trained SVM model from e1071 used for prediction</p></td>
+    </tr>
+    <tr>
+      <th>size_threshold</th>
+      <td><p>the minimum size of of a contiguous set of
+selected threshold for that group to be included. Size is in number
+of pixels.</p></td>
     </tr>
     </table>
     

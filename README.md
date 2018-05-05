@@ -5,6 +5,8 @@ An R package for detecting annd measuring size of Arabidopsis rosettes.
 
 Uses a Support Vector Machine to find the plant.
 
+Visit the [package's website](https://surh.github.io/RosetteDetector/).
+
 # Installation
 
 If you have not done it before, you will need to [install git lfs](https://help.github.com/articles/installing-git-large-file-storage/).

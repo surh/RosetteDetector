@@ -15,6 +15,7 @@ Date: 2017-09-27
 Authors@R: c(person("Sur", "Herrera Paredes", role = c("aut", "cre"), email = "surh@stanford.edu"))
 Description: Package that uses support vector machines
   to find plat rosettes in images.
+URL: https://surh.github.io/RosetteDetector/
 License: GPL (>= 3) | file LICENSE
 RoxygenNote: 6.0.1
 Suggests: knitr,
